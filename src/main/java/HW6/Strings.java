@@ -38,11 +38,6 @@ public class Strings {
         return reversedStr.toString().equalsIgnoreCase(text);
     }
 
-    @Override
-    public String toString() {
-        return guessedWord.charAt(0) +"" +  guessedWord.charAt(1) +"#############";
-    }
-
     public void gameGuess(){
             String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry",
                     "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom", "nut", "olive", " pea", "peanut", "pear",
@@ -55,7 +50,7 @@ public class Strings {
             String gWord = scanner.nextLine();
             guessedWord = words[random.nextInt(words.length)];
             while(!gWord.equalsIgnoreCase(guessedWord)){
-                System.out.println("Try again\n" + toString() + "\n" + variants);
+                System.out.println("Try again\n" + guessedWord.charAt(0) +"" +  guessedWord.charAt(1) +"#############" + "\n" + variants);
 
                 gWord = scanner.nextLine();
             }
