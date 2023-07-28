@@ -3,6 +3,7 @@ package HW6;
 import java.util.Random;
 import java.util.Scanner;
 public class Strings {
+    private String guessedWord;
     public int findSymbolOccurrence(String text, String symbol){
         int before = text.length();
         String newText = text.replace(symbol, "");
