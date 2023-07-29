@@ -13,7 +13,7 @@ class ArrayValueCalculatorTest {
                 {"6", "5", "9", "6",}};
 
         int result = ArrayValueCalculator.doCalc(array);
-        assertEquals(88 , result); ;
+        assertEquals(88 , result);
     }
 
     @Test
