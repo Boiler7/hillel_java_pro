@@ -8,9 +8,9 @@ class ArrayValueCalculatorTest {
     @Test
     void doCalc(){
         String[][] array = {{"1", "4", "6", "9"},
-                {"6", "5", "9", "6",},
-                {"6", "9", "0", "1"},
-                {"6", "5", "9", "6",}};
+                            {"6", "5", "9", "6",},
+                            {"6", "9", "0", "1"},
+                            {"6", "5", "9", "6"}};
 
         int result = ArrayValueCalculator.doCalc(array);
         assertEquals(88 , result);
