@@ -12,9 +12,7 @@ public class FileData {
         this.nameOfFile = name;
         this.sizeInBytes = size;
     }
-    public FileData(String path){
-        this.path = path;
-    }
+
 
     public String getNameOfFile() {
         return nameOfFile;
