@@ -4,7 +4,7 @@ import java.util.*;
 
 public class FileNavigator {
     private final Map<String, List<FileData>> records = new HashMap<>();
-    public void add(String path, String nameOfFile, long sizeOfFile){
+    public void add(String path, FileData fileData){
         FileData fileData = new FileData(path, nameOfFile,sizeOfFile);
 
         if(records.containsKey(path)){
