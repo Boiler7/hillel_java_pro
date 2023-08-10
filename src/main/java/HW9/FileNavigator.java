@@ -21,7 +21,7 @@ public class FileNavigator {
         if(records.containsKey(path)){
             return records.get(path);
         }
-        return null;
+        return records.get(path);
     }
 
     public List<FileData> filterBySize(long borderSize){
