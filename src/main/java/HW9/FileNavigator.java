@@ -4,9 +4,11 @@ import java.util.*;
 
 public class FileNavigator {
     private final Map<String, List<FileData>> records = new HashMap<>();
-    public void add(String path, FileData fileData){
-        FileData fileData = new FileData(path, nameOfFile,sizeOfFile);
+    public String add(String path, FileData fileData){
 
+        if(!path.equals(fileData.getPath())){
+            return "Error: Inconsistent path";
+        }
         if(records.containsKey(path)){
             List<FileData> fileDescription = records.get(path);
             fileDescription.add(fileData);
@@ -15,6 +17,7 @@ public class FileNavigator {
             fileDescription.add(fileData);
             records.put(path, fileDescription);
         }
+        return "";
     }
 
     public List<FileData> find(String path){
@@ -23,6 +26,7 @@ public class FileNavigator {
         }
         return records.get(path);
     }
+
 
     public List<FileData> filterBySize(long borderSize){
         List<FileData> filteredBySize = new ArrayList<>();
