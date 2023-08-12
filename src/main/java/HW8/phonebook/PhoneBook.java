@@ -19,7 +19,7 @@ public class PhoneBook {
                 return record;
             }
         }
-        return (Record) List.of();
+        return null;
     }
     public List<Record> findAll(String name){
         List<Record> res = new ArrayList<>();
