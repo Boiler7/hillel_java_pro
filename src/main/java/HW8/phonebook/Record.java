@@ -14,10 +14,6 @@ public class Record {
         return Objects.equals(name, record.name) && Objects.equals(number, record.number);
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
     public String getName() {
         return name;
     }
