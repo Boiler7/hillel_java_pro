@@ -8,10 +8,10 @@ public class Racetrack implements Obstacle{
         if (participant.isJumpedSuccesfully()) {
             participant.run();
             if (lenght <= participant.getMaxRun()) {
-                System.out.println( "Учасник " + participant.getName() + " перебіг бігову доріжку довжиною " + lenght + ". Пройдено " + participant.getMaxRun());
+                System.out.println( " " + participant.getName() + " перебіг бігову доріжку довжиною " + lenght + ". Пройдено " + participant.getMaxRun());
             } else {
 
-                System.out.println("Учасник " + participant.getName() + " не перебіг бігову доріжку довжиною " + lenght + ". Пройдено " + participant.getMaxRun());
+                System.out.println(" " + participant.getName() + " не перебіг бігову доріжку довжиною " + lenght + ". Пройдено " + participant.getMaxRun());
             }
         }
     }
