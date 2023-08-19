@@ -2,7 +2,11 @@
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
-!**/src/test/**/build/
+!**/src/test/**/build/x
+
+.idea
+
+lib/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
