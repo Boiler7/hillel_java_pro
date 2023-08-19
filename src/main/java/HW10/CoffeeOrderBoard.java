@@ -4,9 +4,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class CoffeeOrderBoard {
-     static final HashSet<Order> set1 = new HashSet<Order>();
+    final HashSet<Order> set1 = new HashSet<>();
     public void add( String name){
-        set1.add(new Order(name));
+        Order order = new Order(name);
+        set1.add(order);
+        order.setNumberOfOrder(set1.size());
+
     }
     public void deliver(){
         Iterator<Order> iterator = set1.iterator();
