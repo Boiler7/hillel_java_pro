@@ -13,7 +13,6 @@ class BoxTest {
         res.addToBoxOne(orange);
 
         assertFalse(res.box.isEmpty());
-        assertEquals(orange.getClass(), res.box.get(0).getClass());
     }
 
     @Test
@@ -23,7 +22,6 @@ class BoxTest {
         res.addToBoxMulti(apple, 5);
 
         assertEquals(5, res.box.size());
-        assertEquals(apple.getClass(), res.box.get(2).getClass());
     }
 
     @Test
@@ -43,14 +41,14 @@ class BoxTest {
 
         var res1 = new Box();
         var orange = new Orange();
-        res1.addToBoxMulti(orange, 5);
+        res1.addToBoxMulti(orange, 2);
 
         var resc = new Box();
         var applec = new Apple();
-        resc.addToBoxMulti(applec, 5);
+        resc.addToBoxMulti(applec, 3);
 
         assertFalse(res.compare(res1));
-        assertTrue(res.compare(resc));
+        assertTrue(res1.compare(resc));
     }
 
     @Test

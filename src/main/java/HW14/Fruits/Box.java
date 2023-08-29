@@ -1,49 +1,49 @@
 package HW14.Fruits;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 public class Box<T extends Fruit>{
-    LinkedList<T> box = new LinkedList<>();
-    private float weightOfBox;
+    LinkedList<Fruit> box = new LinkedList<>();
 
-
-    public void addToBoxOne(T fruit) {
-        if((fruit instanceof Apple && box.get(1) instanceof Apple || box.isEmpty())){
-            box.add(fruit);
-        } else if ((fruit instanceof Orange && box.get(1) instanceof Orange) || box.isEmpty()) {
+    public void addToBoxOne(Fruit fruit) {
+        if(box.isEmpty()){
             box.add(fruit);
         }
-        else {
+        if(fruit instanceof Apple && box.get(0) instanceof Apple){
+            box.add(fruit);
+        } else if(fruit instanceof Orange && box.get(0) instanceof Orange){
+            box.add(fruit);
+        }else {
             return;
         }
     }
-    public void addToBoxMulti(T fruit, int amount) {
+
+    public void addToBoxMulti(Fruit fruit, int amount) {
         for(int i = 0; i < amount; i++){
             box.add(fruit);
         }
     }
 
-    public float getWeight(){
-        int sizeOfBox = box.size();
-        if(box.get(1) instanceof Apple){
-            return this.weightOfBox = sizeOfBox * 1.0F;
+    public double getWeight(){
+        var weight = 0.0;
+        for(var element: box){
+            weight += element.getWeight();
         }
-        else {
-            return weightOfBox = sizeOfBox * 1.5F;
-        }
+        return weight;
     }
-    public boolean compare(Box boxToCompare){
-        if(this.getWeight() == boxToCompare.getWeight()){
-            return true;
-        }
-        else {
-            return false;
-        }
+
+    public boolean compare(Box<T> toCompare){
+        return getWeight() == toCompare.getWeight();
     }
-    public void merge(Box boxToMerge) {
-        if (boxToMerge.box.get(0).getClass() == this.box.get(0).getClass() || this.getWeight() == 0.0F) {
-            this.box.addAll(boxToMerge.box);
-            boxToMerge.box.clear();
+
+    public void merge(Box<T> toMerge) {
+        if(this.box.isEmpty() || toMerge.box.isEmpty()){
+            toMerge.box.addAll((Collection<T>) toMerge);
+        }
+        if ((toMerge.box.get(0).getClass() == box.get(0).getClass()) || getWeight() == 0) {
+            box.addAll(toMerge.box);
+            toMerge.box.clear();
         } else {
             return;
         }
