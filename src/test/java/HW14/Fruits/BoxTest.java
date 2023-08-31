@@ -7,19 +7,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoxTest {
 
     @Test
-    void addToBoxOne() {
+    void add() {
         var res = new Box();
         Orange orange = new Orange();
-        res.addToBoxOne(orange);
+        res.add(orange);
 
         assertFalse(res.box.isEmpty());
     }
 
     @Test
-    void addToBoxMulti() {
+    void addMulti() {
         var res = new Box();
         var apple = new Apple();
-        res.addToBoxMulti(apple, 5);
+        res.addMulti(apple, 5);
 
         assertEquals(5, res.box.size());
     }
@@ -28,7 +28,7 @@ class BoxTest {
     void getWeight() {
         var res = new Box();
         var apple = new Apple();
-        res.addToBoxMulti(apple, 5);
+        res.addMulti(apple, 5);
 
         assertEquals(5.0F, res.getWeight());
     }
@@ -37,15 +37,15 @@ class BoxTest {
     void compare() {
         var res = new Box();
         var apple = new Apple();
-        res.addToBoxMulti(apple, 5);
+        res.addMulti(apple, 5);
 
         var res1 = new Box();
         var orange = new Orange();
-        res1.addToBoxMulti(orange, 2);
+        res1.addMulti(orange, 2);
 
         var resc = new Box();
         var applec = new Apple();
-        resc.addToBoxMulti(applec, 3);
+        resc.addMulti(applec, 3);
 
         assertFalse(res.compare(res1));
         assertTrue(res1.compare(resc));
@@ -55,11 +55,11 @@ class BoxTest {
     void merge() {
         var res = new Box();
         var apple = new Apple();
-        res.addToBoxMulti(apple, 5);
+        res.addMulti(apple, 5);
 
         var resc = new Box();
         var applec = new Apple();
-        resc.addToBoxMulti(applec, 5);
+        resc.addMulti(applec, 5);
 
         res.merge(resc);
 

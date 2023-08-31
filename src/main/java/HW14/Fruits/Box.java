@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class Box<T extends Fruit>{
-    LinkedList<Fruit> box = new LinkedList<>();
+    LinkedList<T> box = new LinkedList<>();
 
-    public void addToBoxOne(Fruit fruit) {
+    public void add(T fruit) {
         if(box.isEmpty()){
             box.add(fruit);
         }
@@ -19,7 +19,7 @@ public class Box<T extends Fruit>{
         }
     }
 
-    public void addToBoxMulti(Fruit fruit, int amount) {
+    public void addMulti(T fruit, int amount) {
         for(int i = 0; i < amount; i++){
             box.add(fruit);
         }
