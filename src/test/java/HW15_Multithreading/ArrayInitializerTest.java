@@ -8,7 +8,6 @@ class ArrayInitializerTest {
 
     @Test
     void init() {
-        var initializer = new ArrayInitializer();
 
         double[] array = {2, 2, 2, 2, 2, 2};
         double[] array2 = {2, 2, 2, 2, 2, 2};
