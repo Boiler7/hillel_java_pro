@@ -4,16 +4,18 @@ import java.util.Arrays;
 
 public class ArrayInitializer {
     public static void init(double[] array){
-        int n = array.length;
+        int length = array.length;
+        int mid = length/2;
+
 
         var thread1 = new Thread(() -> {
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < mid; i++) {
                 array[i] = (array[i] * Math.sin(0.2 + i / 5.0) * Math.cos(0.2 + i / 5.0) * Math.cos(0.4 + i / 2.0));
             }
         });
 
         var thread2 = new Thread(() -> {
-            for (int i = 0; i < n; i++) {
+            for (int i = mid; i < length; i++) {
                 array[i] = (array[i] * Math.sin(0.2 + i / 5.0) * Math.cos(0.2 + i / 5.0) * Math.cos(0.4 + i / 2.0));
             }
         });
