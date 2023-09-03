@@ -1,4 +1,4 @@
-package HW16;
+package HW16_Stream_API;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -10,7 +10,7 @@ public class Product {
     private boolean isWithDiscount;
     private LocalDate date;
 
-    public Product(){};
+    public Product(){}
     public Product(String category, double price, boolean isWithDiscount) {
         this.category = category;
         this.price = price;
@@ -29,17 +29,15 @@ public class Product {
                 .toList();
     }
 
-    public List<Product> getListOfBooksWith10discount(){
+    public List<Product> getDiscountedBooks(){
         return productList.stream()
                 .filter(product -> product.category.equalsIgnoreCase("Book"))
                 .map(product -> {
                             double priceWithDiscount = product.price - 0.1 * product.price;
-                            return new Product(category, priceWithDiscount, true);
+                            return new Product(product.category, priceWithDiscount, true);
                 })
-                .toList();
+                .collect(Collectors.toList());
     }
-
-
 
     public Product findCheapestBook() {
         return productList.stream()
@@ -93,5 +91,4 @@ public class Product {
     public String getCategory() {
         return category;
     }
-
 }

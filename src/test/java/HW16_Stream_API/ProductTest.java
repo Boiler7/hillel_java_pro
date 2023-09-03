@@ -1,4 +1,4 @@
-package HW16;
+package HW16_Stream_API;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,6 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
-
 
     @Test
     void getProductList() {
@@ -35,26 +34,22 @@ class ProductTest {
     }
 
     @Test
-    void getListOfBooksWith10discount() {
+    void getDiscountedBooks() {
         var product = new Product();
+
         product.addProduct(new Product("Book", 50, false));
-        product.addProduct(new Product("Book", 12, false));
         product.addProduct(new Product("Book", 45, false));
         product.addProduct(new Product("Book", 270, false));
-        product.addProduct(new Product("Book", 75, false));
-        product.addProduct(new Product("Book", 300, false));
-        product.addProduct(new Product("Book", 250, false));
-        product.addProduct(new Product("Tech", 90, false));
         product.addProduct(new Product("Pack", 70, false));
         product.addProduct(new Product("Toy", 30, false));
 
         var expectedList = List.of(
-                new Product("Book", 270, false),
-                new Product("Book", 300, false),
-                new Product("Book", 250, false)
+                new Product("Book", 45, true),
+                new Product("Book", 40.5, true),
+                new Product("Book", 243.0, true)
         );
 
-        assertEquals(expectedList, product.getProductList());
+        assertEquals(expectedList, product.getDiscountedBooks());
     }
 
     @Test
