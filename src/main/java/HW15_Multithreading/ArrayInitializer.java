@@ -16,8 +16,8 @@ public class ArrayInitializer {
 
         var thread2 = new Thread(() -> {
             for (int i = mid; i < length; i++) {
-                array[i] = (array[i] * Math.sin(0.2 + i / 5.0) * Math.cos(0.2 + i / 5.0) * Math.cos(0.4 + i / 2.0));
-            }
+                var j = i - mid;
+                array[i] = (array[i] * Math.sin(0.2 + j / 5.0) * Math.cos(0.2 + j / 5.0) * Math.cos(0.4 + j / 2.0));            }
         });
 
         thread1.start();

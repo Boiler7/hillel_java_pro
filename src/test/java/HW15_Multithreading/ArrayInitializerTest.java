@@ -12,12 +12,11 @@ class ArrayInitializerTest {
         double[] array = {2, 2, 2, 2, 2, 2};
         double[] array2 = {2, 2, 2, 2, 2, 2};
 
-
         ArrayInitializer.init(array);
         ArrayInitializer.init(array2);
 
         for(int i = 0; i<array.length; i++) {
-            assertEquals(array2[i], array[i]);
+            assertNotEquals(2, array[i]);
         }
     }
 }
