@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
 
+
     @Test
     void getProductList() {
         var product = new Product();

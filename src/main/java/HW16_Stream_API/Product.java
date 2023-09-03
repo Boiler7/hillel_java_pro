@@ -75,6 +75,7 @@ public class Product {
         return Double.compare(product.price, price) == 0 && isWithDiscount == product.isWithDiscount && Objects.equals(category, product.category);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(category, price, isWithDiscount);
