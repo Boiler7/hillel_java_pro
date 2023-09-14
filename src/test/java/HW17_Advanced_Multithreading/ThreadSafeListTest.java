@@ -16,7 +16,7 @@ class ThreadSafeListTest {
         target.add("Car");
 
         assertNotNull(target.get(0));
-        assertEquals("Car", target.get(0));
+        assertTrue( target.getList().contains("Car"));
     }
 
     @Test

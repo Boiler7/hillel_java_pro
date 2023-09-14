@@ -39,6 +39,10 @@ public class ThreadSafeList<T>{
           lock.writeLock().unlock();
         }
     }
+
+    protected List<T> getList(){
+        return this.list;
+    }
     public int size(){
         return list.size();
     }
