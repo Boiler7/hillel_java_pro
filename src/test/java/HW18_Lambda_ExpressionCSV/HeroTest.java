@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class HeroTest {
 
     @Test
-    void getAverageHigh() {
+    void shouldGetAverageHigh() {
         List<Hero> list = List.of(
                 new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                         "DC Comics", "red", "good", 90),
@@ -26,7 +26,7 @@ class HeroTest {
     }
 
     @Test
-    void getNameOfHighest() {
+    void shouldGetNameOfHighest() {
         List<Hero> list = List.of(
                 new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                         "DC Comics", "red", "good", 90),
@@ -39,7 +39,7 @@ class HeroTest {
     }
 
     @Test
-    void getNameOfHeaviest() {
+    void shouldGetNameOfHeaviest() {
         List<Hero> list = List.of(
                 new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                         "DC Comics", "red", "good", 90),
@@ -52,7 +52,7 @@ class HeroTest {
     }
 
     @Test
-    void getPersonsGenderGroup() {
+    void shouldGetPersonsGenderGroup() {
         List<Hero> list = List.of(
                 new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                         "DC Comics", "red", "good", 90),
@@ -70,7 +70,7 @@ class HeroTest {
     }
 
     @Test
-    void getPersonsAlignment() {
+    void shouldGetPersonsAlignment() {
         List<Hero> list = List.of(
                 new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                         "DC Comics", "red", "good", 90),
@@ -88,7 +88,7 @@ class HeroTest {
     }
 
     @Test
-    void get5PopularPublishers() {
+    void shouldGet5PopularPublishers() {
         List<Hero> list = List.of(
                 new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                         "DC Comics", "red", "good", 90),
@@ -103,7 +103,7 @@ class HeroTest {
         assertThat(popularPublishers, Matchers.containsInAnyOrder("DC Comics", "Marvel Comics", "Wildstorm"));    }
 
     @Test
-    void get3PopularHairColor() {
+    void shouldGet3PopularHairColor() {
         List<Hero> list = List.of(
                 new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                         "DC Comics", "red", "good", 90),
@@ -122,7 +122,7 @@ class HeroTest {
     }
 
     @Test
-    void getPopularEyeColor() {
+    void shouldGetPopularEyeColor() {
         List<Hero> list = List.of(
             new Hero("Abin Sur", "Male", "blue", "Ungaran", "No Hair",185,
                     "DC Comics", "red", "good", 90),

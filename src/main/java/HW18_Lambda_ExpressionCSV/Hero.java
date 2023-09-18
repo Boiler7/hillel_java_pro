@@ -22,9 +22,9 @@ public class Hero{
     private double weight;
     public static double getAverageHigh(List<Hero> heroes) {
         return heroes.stream()
-                .mapToDouble(hero -> hero.getHeight())
+                .mapToDouble(Hero::getHeight)
                 .average()
-                .getAsDouble();
+                .orElse(0);
     }
 
 
@@ -52,7 +52,7 @@ public class Hero{
     }
 
 
-    public static List get5PopularPublishers(List<Hero> heroes){
+    public static List<String> get5PopularPublishers(List<Hero> heroes){
         return heroes.stream()
                 .collect(Collectors.groupingBy(Hero::getPublisher, Collectors.counting()))
                 .entrySet().stream()
@@ -62,7 +62,7 @@ public class Hero{
                 .collect(Collectors.toList());
     }
 
-    public static List get3PopularHairColor(List<Hero> heroes){
+    public static List<String> get3PopularHairColor(List<Hero> heroes){
         return heroes.stream()
                 .collect(Collectors.groupingBy(Hero::getHairColor, Collectors.counting()))
                 .entrySet().stream()
@@ -75,10 +75,8 @@ public class Hero{
     public static String getPopularEyeColor(List<Hero> heroes){
         return heroes.stream()
                 .collect(Collectors.groupingBy(Hero::getEyeColor, Collectors.counting()))
-                .entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(1)
+                .entrySet().stream().max(Map.Entry.<String, Long>comparingByValue())
                 .map(Map.Entry::getKey)
-                .collect(Collectors.joining());
+                .orElse("No hero found");
     }
 }
