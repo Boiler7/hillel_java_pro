@@ -1,6 +1,5 @@
 package HW18_Lambda_ExpressionCSV;
 
-import com.opencsv.CSVReader;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
