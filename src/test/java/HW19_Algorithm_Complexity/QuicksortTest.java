@@ -15,6 +15,6 @@ class QuicksortTest {
 
         Quicksort.quickSort(array, 0, array.length-1);
 
-        assertArrayEquals(array, array1);
+        assertArrayEquals(array, expected);
     }
 }
