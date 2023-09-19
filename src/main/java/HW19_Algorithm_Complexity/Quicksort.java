@@ -25,7 +25,7 @@ public class Quicksort {
         return (i + 1);
     }
 
-    static void quickSort(int[] arr, int low, int high)
+    public static void quickSort(int[] arr, int low, int high)
     {
         if (low < high) {
             int pi = partition(arr, low, high);
