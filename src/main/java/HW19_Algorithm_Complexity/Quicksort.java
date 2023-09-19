@@ -2,7 +2,7 @@ package HW19_Algorithm_Complexity;
 
 
 public class Quicksort {
-    static void swap(int[] arr, int i, int j)
+    private static void swap(int[] arr, int i, int j)
     {
         int temp = arr[i];
         arr[i] = arr[j];
