@@ -11,7 +11,7 @@ class QuicksortTest {
     @Test
     void quickSort() {
         int[] array = {9, 3, 45, 6, 0, 12, 6};
-        int[] array1 = Arrays.stream(array).sorted().toArray();
+        int[] expected = Arrays.stream(array).sorted().toArray();
 
         Quicksort.quickSort(array, 0, array.length-1);
 
