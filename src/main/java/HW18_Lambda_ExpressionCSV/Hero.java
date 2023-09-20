@@ -67,7 +67,7 @@ public class Hero{
                 .collect(Collectors.groupingBy(Hero::getHairColor, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(3)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
