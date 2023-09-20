@@ -2,7 +2,6 @@ package HW20_Lombok;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Builder
 @Getter
@@ -17,5 +16,4 @@ public class HeroBuilder {
     private final String skinColor;
     private final String alignment;
     private final int weight;
-
 }

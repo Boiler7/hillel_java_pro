@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HeroLombokTest {
     @Test
-    void shouldGetName(){
+    void shouldGetFields(){
         var hero = new HeroLombok("Abraxas", "Male", "blue", "Cosmic Entity", "Black",-99,
                 "Marvel Comics","-", "bad", 441);
 

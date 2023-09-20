@@ -7,15 +7,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class HeroBuilderTest {
 
     @Test
-    void shouldGet(){
+    void shouldGetFields(){
 
         var hero = HeroBuilder.builder()
                 .name("Abraxas")
                 .gender("Male")
-                .eyeColor("blue");
+                .eyeColor("blue")
+                .build();
 
-        assertEquals("Abraxas", hero.build().getName());
-        assertEquals("Male", hero.build().getGender());
-        assertEquals("blue", hero.build().getEyeColor());
+        assertEquals("Abraxas", hero.getName());
+        assertEquals("Male", hero.getGender());
+        assertEquals("blue", hero.getEyeColor());
     }
 }
