@@ -1,8 +1,11 @@
 package HW20_Lombok;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Builder
+@Getter
 @RequiredArgsConstructor
 public class HeroBuilder {
     private final String name;
@@ -16,11 +19,4 @@ public class HeroBuilder {
     private final String alignment;
     private final int weight;
 
-    @RequiredArgsConstructor
-    public static class Address {
-        private final String address;
-        private final String city;
-        private final String region;
-        private final String county;
-    }
 }

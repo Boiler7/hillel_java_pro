@@ -8,8 +8,14 @@ class HeroBuilderTest {
 
     @Test
     void shouldGet(){
-        HeroBuilder hero = new HeroBuilder("Abraxas", "Male", "blue", "Cosmic Entity", "Black", -99,
-                "Marvel Comics", "-", "bad", 441, new HeroBuilder.Address("Wilder St.",
-                "Philadelphia", "Pennsylvania", "USA"));
+
+        var hero = HeroBuilder.builder()
+                .name("Abraxas")
+                .gender("Male")
+                .eyeColor("blue");
+
+        assertEquals("Abraxas", hero.build().getName());
+        assertEquals("Male", hero.build().getGender());
+        assertEquals("blue", hero.build().getEyeColor());
     }
 }
