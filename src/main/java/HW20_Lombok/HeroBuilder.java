@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @Builder
 @Getter
-@RequiredArgsConstructor
 public class HeroBuilder {
     private final String name;
     private final String gender;
