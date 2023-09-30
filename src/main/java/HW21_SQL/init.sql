@@ -23,5 +23,5 @@ create table Program(
     lessons_id  INTEGER,
     schedule_id INTEGER,
    	foreign key (lessons_id) references Lesson(id),
-	foreign key (schedule_id) references Schedule(schedule_id)
+	foreign key (schedule_id) references Schedule(id)
 )
