@@ -68,9 +68,11 @@ public class HeroImplementation implements HeroDao{
 
     @Override
     public void update(Hero hero) {
-        var sql = "delete from heroes where Name = '" + hero.id + "'";
+        var sql = "update heroes set id = ?, name = ?";
         try (var connection = dataSource.getConnection();
-             var statement = connection.createStatement()) {
+             var statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, hero.id);
+            statement.setString(2, hero.name);
             statement.executeQuery(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
