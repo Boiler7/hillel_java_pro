@@ -68,7 +68,7 @@ public class HeroImplementation implements HeroDao{
 
     @Override
     public void update(Hero hero) {
-        var sql = "update heroes set id = ?, name = ?";
+        var sql = "update heroes set id = ?, name = ? where id = hero.id, hero.name";
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement(sql)) {
             statement.setLong(1, hero.id);
