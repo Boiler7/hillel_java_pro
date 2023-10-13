@@ -1,4 +1,4 @@
-package HW10;
+package HW10_Sets;
 
 import HW10_Sets.CoffeeOrderBoard;
 import org.junit.jupiter.api.Test;

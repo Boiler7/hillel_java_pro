@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 public class CoffeeOrderBoard {
-    final HashSet<Order> set1 = new HashSet<>();
+    HashSet<Order> set1 = new HashSet<>();
     public void add( String name){
         Order order = new Order(name);
         set1.add(order);

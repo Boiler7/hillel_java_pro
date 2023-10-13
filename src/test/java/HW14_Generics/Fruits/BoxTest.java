@@ -1,8 +1,5 @@
-package HW14.Fruits;
+package HW14_Generics.Fruits;
 
-import HW14_Generics.Fruits.Apple;
-import HW14_Generics.Fruits.Box;
-import HW14_Generics.Fruits.Orange;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
