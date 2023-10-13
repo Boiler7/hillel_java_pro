@@ -1,5 +1,6 @@
 package HW10;
 
+import HW10_Sets.CoffeeOrderBoard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

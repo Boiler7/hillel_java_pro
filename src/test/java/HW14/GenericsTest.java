@@ -1,5 +1,6 @@
 package HW14;
 
+import HW14_Generics.Generics;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
