@@ -1,5 +1,8 @@
 package HW7;
 
+import HW7_Exceptions.ArrayDataException;
+import HW7_Exceptions.ArraySizeException;
+import HW7_Exceptions.ArrayValueCalculator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
