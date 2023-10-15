@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class HeroImplementation implements HeroDao{
+public class HeroDaoImplementation implements HeroDao{
     private final DataSource dataSource;
     @Override
     public List<Hero> findAll() {
