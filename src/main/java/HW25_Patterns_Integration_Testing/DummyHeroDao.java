@@ -12,51 +12,26 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@RequiredArgsConstructor
 public class DummyHeroDao implements HeroDao{
     private final List<Hero> db;
-    private DataSource dataSource;
 
-    public DummyHeroDao(List<Hero> db, DataSource dataSource) {
+    public DummyHeroDao(List<Hero> db) {
         this.db = db;
-        this.dataSource = dataSource;
     }
+
     public List<Hero> findAll() {
         return db;
     }
     @Override
     public List<Hero> findByName(String name) {
-        var sql = "select * from heroes where name = '" + name + "'";
-        try (var connection = dataSource.getConnection();
-             var statement = connection.createStatement()) {
-            var result = statement.executeQuery(sql);
-            return mapHeroes(result);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return db.stream()
+                .filter(hero -> hero.getName().equals(name))
+                .toList();
     }
-    private ArrayList<Hero> mapHeroes(ResultSet result) throws SQLException {
-        var students = new ArrayList<Hero>();
-        while (result.next()) {
-            students.add(Hero.builder()
-                    .id(result.getLong("Id"))
-                    .name(result.getString("Name"))
-                    .gender(result.getString("Gender"))
-                    .eyeColor(result.getString("Eye Color"))
-                    .race(result.getString("Race"))
-                    .hairColor(result.getString("Hair Color"))
-                    .height(result.getDouble("Height"))
-                    .publisher(result.getString("Publisher"))
-                    .skinColor(result.getString("Skin Color"))
-                    .alignment(result.getString("Alignment"))
-                    .weigh(result.getInt("Weight"))
-                    .build());
-        }
-        return students;
-    }
+
     @Override
     public void create(Hero hero) {
-
+        db.add(hero);
     }
 
     @Override
@@ -66,6 +41,10 @@ public class DummyHeroDao implements HeroDao{
 
     @Override
     public boolean delete(Long id) {
+        if(db.size() >= id){
+            db.remove(id-1);
+            return true;
+        }
         return false;
     }
 }

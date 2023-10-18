@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 public interface HeroFabric{
-    public HeroService createService(DataSource dataSource);
+    public HeroService createService();
+
 
 }

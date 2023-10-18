@@ -32,7 +32,7 @@ public class HeroDto {
             return this;
         }
 
-        public HeroDtoBuilder List(List<String> movies){
+        public HeroDtoBuilder movies(List<String> movies){
             this.movies = movies;
             return this;
         }
