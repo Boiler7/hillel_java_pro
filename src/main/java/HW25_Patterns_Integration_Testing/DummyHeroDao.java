@@ -2,13 +2,7 @@ package HW25_Patterns_Integration_Testing;
 
 import HW24_JDBC.Hero;
 import HW24_JDBC.HeroDao;
-import lombok.RequiredArgsConstructor;
 
-import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
