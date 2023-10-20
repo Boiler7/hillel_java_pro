@@ -1,5 +1,6 @@
 package HW8;
 
+import HW8_Lists.ListFunction;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

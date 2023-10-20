@@ -1,5 +1,6 @@
 package HW6;
 
+import HW6_Symbols_and_tests.Strings;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
