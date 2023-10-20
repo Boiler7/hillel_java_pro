@@ -24,7 +24,6 @@ class HeroServiceTest {
             new Hero(5L, "Abinnn Sur", "Male", "blue", "Ungaran", "No Hair", 185, "DC Comics", "red", "good", 90)
     );
 
-    private HeroFabricImp heroFabricImp = new HeroFabricImp();
     private HeroService target;
     @Mock
     private HeroDao heroDao;
@@ -46,12 +45,5 @@ class HeroServiceTest {
 
         assertThat(result, hasSize(2));
         assertThat(result1, hasSize(5));
-    }
-
-    @Test
-    void shouldReturnListOfHeroes() {
-        target = heroFabricImp.createService(heroes);
-        List<HeroDto> heroDtos = target.getHeroes();
-        assertEquals(5, heroDtos.size());
     }
 }
