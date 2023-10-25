@@ -2,7 +2,7 @@ package HW24_JDBC;
 
 import java.util.List;
 
-interface HeroDao {
+public interface HeroDao {
     List<Hero> findAll();
     List<Hero> findByName(String name);
     void create(Hero hero);
