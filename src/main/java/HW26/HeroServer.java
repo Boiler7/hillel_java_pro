@@ -6,9 +6,7 @@ import HW25_Patterns_Integration_Testing.HeroService;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -21,9 +19,11 @@ public class HeroServer {
         while (true) {
             System.out.println("Waiting for the client request");
             var socket = server.accept();
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            String message = (String) in.readObject();
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            String message = in.readLine();
+            var out = new PrintWriter(socket.getOutputStream(), true);
+
             in.close();
             out.close();
             socket.close();
@@ -34,7 +34,9 @@ public class HeroServer {
                 String[] separated = message.split(" ");
                 var heroDao = new HeroDaoImplementation(dataSource()).findByName(separated[1]);
                 if (heroDao == null) {
-                    System.out.println("There are no " + separated[1] + " in database");
+
+                } else {
+
                 }
             }
         }
