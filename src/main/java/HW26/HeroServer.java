@@ -43,5 +43,4 @@ public class HeroServer {
             thread.start();
         }
     }
-
 }
