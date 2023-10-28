@@ -39,11 +39,14 @@ public class HeroProtocol {
                 if (hero.equals(null)) {
                     System.out.println("Hero is not found");
                 } else {
-                System.out.println(hero);
+//                System.out.println("Name:" +hero.getName() + "\nMoveies: " + hero.getMovies());
+                    out.println("Hero Name: " + hero.getName());
+                    out.println("Movies: " + String.join(", ", hero.getMovies()));
                 }
             }
         }
     }
+
     private static DataSource dataSource() {
         var ds = new PGSimpleDataSource();
         ds.setServerNames(new String[]{"localhost"});

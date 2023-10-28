@@ -18,11 +18,18 @@ public class HeroServer {
 
     public static void main(String[] args) throws IOException {
         server = new ServerSocket(SERVER_PORT);
+        Socket socket = server.accept();
+
+        Thread thread = new Thread(() -> {
+            try {
+                HeroProtocol.run(socket);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         while (true) {
             System.out.println("Waiting for the client request");
-
-            Socket socket = server.accept();
 
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //            var out = new PrintWriter(socket.getOutputStream(), true);
@@ -33,13 +40,6 @@ public class HeroServer {
             if (message.equals("-exit"))
                 break;
 
-            Thread thread = new Thread(() -> {
-                try {
-                    HeroProtocol.run(socket);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
             thread.start();
         }
     }

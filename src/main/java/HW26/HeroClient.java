@@ -1,11 +1,5 @@
 package HW26;
 
-import HW24_JDBC.HeroDaoImplementation;
-import HW25_Patterns_Integration_Testing.HeroMovieService;
-import HW25_Patterns_Integration_Testing.HeroService;
-import org.postgresql.ds.PGSimpleDataSource;
-
-import javax.sql.DataSource;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,6 +14,7 @@ public class HeroClient {
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             while (true) {
+                System.out.println("Enter a command: ");
                 String message = scanner.nextLine();
                 out.println(message);
 
