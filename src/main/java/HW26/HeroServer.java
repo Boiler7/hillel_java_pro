@@ -15,14 +15,14 @@ public class HeroServer {
     private static ServerSocket server;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, IOException {
-        var server = new ServerSocket(SERVER_PORT);
+        server = new ServerSocket(SERVER_PORT);
 
-
+        var socket = server.accept();
+        var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        var out = new PrintWriter(socket.getOutputStream(), true);
 
         while (true) {
-            var socket = server.accept();
-            var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            var out = new PrintWriter(socket.getOutputStream(), true);
+
             System.out.println("Waiting for the client request");
 
             String message = in.readLine();

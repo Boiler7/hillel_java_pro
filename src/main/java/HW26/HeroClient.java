@@ -21,7 +21,6 @@ public class HeroClient {
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             while (true) {
-                in.readLine();
                 String message = scanner.next();
                 out.println(message);
                 if(message.equals("-exit")){
