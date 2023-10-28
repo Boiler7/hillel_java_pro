@@ -3,8 +3,8 @@ package HW26;
 import HW24_JDBC.HeroDaoImplementation;
 import HW25_Patterns_Integration_Testing.HeroMovieService;
 import HW25_Patterns_Integration_Testing.HeroService;
+import HW7_Exceptions.ArraySizeException;
 import org.postgresql.ds.PGSimpleDataSource;
-
 import javax.sql.DataSource;
 import java.io.*;
 import java.net.ServerSocket;
@@ -16,32 +16,40 @@ public class HeroServer {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, IOException {
         var server = new ServerSocket(SERVER_PORT);
+
+
+
         while (true) {
-            System.out.println("Waiting for the client request");
             var socket = server.accept();
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            var out = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Waiting for the client request");
 
             String message = in.readLine();
-            var out = new PrintWriter(socket.getOutputStream(), true);
 
-            in.close();
-            out.close();
-            socket.close();
+
             if (message.equalsIgnoreCase("-exit")) {
+                System.out.println("Shutting down the server");
+                in.close();
+                out.close();
+                socket.close();
+                server.close();
                 break;
-            } else if (message.contains("-name")) {
-                HeroService heroService = new HeroService(new HeroDaoImplementation(dataSource()), new HeroMovieService());
-                String[] separated = message.split(" ");
-                var heroDao = new HeroDaoImplementation(dataSource()).findByName(separated[1]);
-                if (heroDao == null) {
+            } else if (message.startsWith("-name")) {
+                System.out.println("Finding request");
+                message = message.substring(5);
+                out.println("ldkjfs" + message);
 
+                HeroService heroService = new HeroService(new HeroDaoImplementation(dataSource()), new HeroMovieService());
+                var heroDao = new HeroDaoImplementation(dataSource()).findByName(message);
+
+                if (heroDao == null) {
+                    out.println("Hero is not found");
                 } else {
 
                 }
             }
         }
-        System.out.println("Shutting down Socket server");
-        server.close();
     }
 
     private static DataSource dataSource() {
