@@ -1,13 +1,17 @@
-package HW26;
+package HW26_Client_Server;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class HeroClient {
     private static ServerSocket server;
-    public static void main(String[] args)  {
+
+    public static void main(String[] args) {
         try (Socket socket = new Socket(HeroServer.SERVER_HOST, HeroServer.SERVER_PORT)) {
             Scanner scanner = new Scanner(System.in);
             var out = new PrintWriter(socket.getOutputStream(), true);
@@ -18,7 +22,7 @@ public class HeroClient {
                 String message = scanner.nextLine();
                 out.println(message);
 
-                if(message.equals("-exit")){
+                if (message.equals("-exit")) {
                     System.out.println("Shutting down the connection...");
                     in.close();
                     out.close();

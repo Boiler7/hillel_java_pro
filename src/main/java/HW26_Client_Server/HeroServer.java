@@ -1,4 +1,4 @@
-package HW26;
+package HW26_Client_Server;
 
 import HW24_JDBC.HeroDaoImplementation;
 import HW25_Patterns_Integration_Testing.HeroMovieService;
@@ -47,7 +47,7 @@ public class HeroServer {
 
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             runnableFuture.get();
-            String message = "";
+            String message = " ";
 
             message = in.readLine();
             if (message.equals("-exit")) {

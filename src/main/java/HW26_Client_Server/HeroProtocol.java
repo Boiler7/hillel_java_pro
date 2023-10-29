@@ -1,4 +1,4 @@
-package HW26;
+package HW26_Client_Server;
 
 import HW24_JDBC.HeroDaoImplementation;
 import HW25_Patterns_Integration_Testing.HeroMovieService;
@@ -63,3 +63,5 @@ public class HeroProtocol {
         return ds;
     }
 }
+
+
