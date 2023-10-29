@@ -1,4 +1,4 @@
-package HW26;
+package HW26_Client_Server;
 
 import HW24_JDBC.HeroDaoImplementation;
 import HW25_Patterns_Integration_Testing.HeroMovieService;
@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.List;
 
 public class HeroProtocol {
     public static void run(Socket socket) throws IOException {

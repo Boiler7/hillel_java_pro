@@ -1,4 +1,4 @@
-package HW26;
+package HW26_Client_Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;

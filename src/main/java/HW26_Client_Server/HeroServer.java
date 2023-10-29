@@ -1,17 +1,9 @@
-package HW26;
+package HW26_Client_Server;
 
-import HW24_JDBC.HeroDaoImplementation;
-import HW25_Patterns_Integration_Testing.HeroMovieService;
-import HW25_Patterns_Integration_Testing.HeroService;
-import HW7_Exceptions.ArraySizeException;
-import org.postgresql.ds.PGSimpleDataSource;
-
-import javax.sql.DataSource;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
