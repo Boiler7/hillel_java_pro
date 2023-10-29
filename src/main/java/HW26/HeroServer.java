@@ -47,7 +47,7 @@ public class HeroServer {
 
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             runnableFuture.get();
-            String message = "";
+            String message = " ";
 
             message = in.readLine();
             if (message.equals("-exit")) {
