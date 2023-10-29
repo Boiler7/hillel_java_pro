@@ -20,10 +20,11 @@ public class HeroService {
                 .map(hero -> map(hero))
                 .toList();
     }
-    public  HeroDto map(Hero hero){
-        return HeroDto.builder()
+    public HeroDto map(Hero hero) {
+        return new HeroDto.Builder()
                 .name(hero.getName())
                 .movies(heroMovieService.getPlayedIn(hero.getName()))
                 .build();
     }
+
 }
