@@ -2,14 +2,13 @@ package HW25_Patterns_Integration_Testing;
 
 
 
-import lombok.Builder;
-
 import java.util.List;
-
-//@Builder
 public class HeroDto {
     private String name;
     private List<String> movies;
+    public static HeroDtoBuilder builder(){
+        return new HeroDtoBuilder();
+    }
 
     public String getName() {
         return name;
@@ -19,29 +18,27 @@ public class HeroDto {
         return movies;
     }
 
-    // Private constructor to create instances using the builder
-    private HeroDto(String name, List<String> movies) {
-        this.name = name;
-        this.movies = movies;
+    private HeroDto(HeroDtoBuilder builder){
+        this.name = builder().name;
+        this.movies = builder().movies;
     }
-
-    public static class Builder {
+    public static class HeroDtoBuilder {
         private String name;
         private List<String> movies;
 
-        public Builder name(String name) {
+
+        public HeroDtoBuilder name(String name){
             this.name = name;
-            return this; // Return the builder instance for method chaining
+            return this;
         }
 
-        public Builder movies(List<String> movies) {
+        public HeroDtoBuilder movies(List<String> movies){
             this.movies = movies;
-            return this; // Return the builder instance for method chaining
+            return this;
         }
 
-        public HeroDto build() {
-            // Perform any validation if needed
-            return new HeroDto(name, movies);
+        public HeroDto build(){
+            return new HeroDto(this);
         }
     }
 }
