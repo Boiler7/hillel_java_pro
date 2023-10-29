@@ -29,25 +29,51 @@ public class HeroDaoImplementation implements HeroDao {
         heroes = new ArrayList<Hero>();
         while (result.next()) {
             heroes.add(Hero.builder()
-                    .id(result.getLong("Id"))
-                    .name(result.getString("Name"))
-                    .gender(result.getString("Gender"))
-                    .eyeColor(result.getString("Eye Color"))
-                    .race(result.getString("Race"))
-                    .hairColor(result.getString("Hair Color"))
-                    .height(result.getDouble("Height"))
-                    .publisher(result.getString("Publisher"))
-                    .skinColor(result.getString("Skin Color"))
-                    .alignment(result.getString("Alignment"))
-                    .weigh(result.getInt("Weight"))
+                    .id(result.getLong("id"))
+                    .name(result.getString("name"))
+                    .gender(result.getString("gender"))
+                    .eyeColor(result.getString("eye_color"))
+                    .race(result.getString("race"))
+                    .hairColor(result.getString("hair_color"))
+                    .height(result.getDouble("height"))
+                    .publisher(result.getString("publisher"))
+                    .skinColor(result.getString("skin"))
+                    .alignment(result.getString("alignment"))
+                    .weigh(result.getInt("weight"))
                     .build());
         }
         return heroes;
     }
 
+//    @Override // Remake using prepare statement
+//    public List<Hero> findByName(String name) {
+//        var sql = "select * from public.heroes where name = ? ";
+//        try (var connection = dataSource.getConnection();
+//             var statement = connection.prepareStatement(sql)) {
+//            statement.setString(1, name);
+//            var result = statement.executeQuery(sql);
+//            return mapHeroes(result);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+//    @Override // Remake using prepare statement
+//    public List<Hero> findByName(String name) {
+//        var sql = "SELECT * FROM public.heroes WHERE heroes.name = ?";
+//        try (var connection = dataSource.getConnection();
+//             var statement = connection.prepareStatement(sql)) {
+//            statement.setString(1, name);
+//            var result = statement.executeQuery(); // Removed the SQL query argument
+//            return mapHeroes(result);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
     @Override // Remake using prepare statement
     public List<Hero> findByName(String name) {
-        var sql = "select * from heroes where Name = '" + name + "'";
+        var sql = "SELECT * FROM public.heroes WHERE heroes.name = '"+name+"'";
         try (var connection = dataSource.getConnection();
              var statement = connection.createStatement()) {
             var result = statement.executeQuery(sql);
@@ -59,8 +85,8 @@ public class HeroDaoImplementation implements HeroDao {
 
     @Override
     public void create(Hero hero) {
-        var sql = "insert into heroes(name,gender,eye_color, race, hair_color, height, publisher, skin," +
-                "alignment, weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var sql = "insert into heroes(name,eye_color, race, hair_color, height, publisher, skin," +
+                "alignment, weight, gender) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (var connection = dataSource.getConnection();
             var statement = connection.prepareStatement(sql)) {
             statement.setString(1, hero.name);

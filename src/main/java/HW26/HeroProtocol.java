@@ -24,25 +24,32 @@ public class HeroProtocol {
             if (message.equals("-exit")) {
                 System.out.println("Client disconnected");
                 in.close();
-                out.close();
                 socket.close();
+                out.close();
                 break;
             }
+
             if (message.startsWith("-name")) {
                 System.out.println("Finding request");
-                String heroName = message.substring(5);
+                String heroName = message.substring(6);
 
                 HeroService heroService = new HeroService(new HeroDaoImplementation(dataSource()), new HeroMovieService());
-                var heroDao = new HeroDaoImplementation(dataSource()).findByName(heroName);
-                var hero = heroService.map(heroDao.get(0));
+                var heroDao = new HeroDaoImplementation(dataSource());
+                var hero = heroDao.findByName(heroName).get(0);
+                System.out.println("Hero's name: " + hero.getName());
 
-                if (hero.equals(null)) {
-                    System.out.println("Hero is not found");
+                var herodto = heroService.map(hero);
+                System.out.println(herodto);
+                if (herodto.getMovies() == null & herodto.getName() == null) {
+                    out.println("Hero is not found");
                 } else {
-//                System.out.println("Name:" +hero.getName() + "\nMoveies: " + hero.getMovies());
-                    out.println("Hero Name: " + hero.getName());
-                    out.println("Movies: " + String.join(", ", hero.getMovies()));
+                    System.out.println("Send hero");
+                    out.println("Name:" +herodto.getName() + "\tMoveies: " + herodto.getMovies());
                 }
+//                out.println(hero);
+//                System.out.println(heroDao.findByName(heroName));
+//                out.println(heroDao.findByName(heroName));
+//                out.println(heroDao.findByName("Abe Sapien"));
             }
         }
     }
@@ -50,7 +57,7 @@ public class HeroProtocol {
     private static DataSource dataSource() {
         var ds = new PGSimpleDataSource();
         ds.setServerNames(new String[]{"localhost"});
-//        ds.setDatabaseName("postgres");
+        ds.setDatabaseName("postgres");
         ds.setUser("hillel");
         ds.setPassword("hillel");
         return ds;
