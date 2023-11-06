@@ -22,7 +22,6 @@ public class HeroClient {
                     System.out.println("Shutting down the connection...");
                     in.close();
                     out.close();
-                    socket.close();
                     break;
                 }
                 String messageFromServer = in.readLine();

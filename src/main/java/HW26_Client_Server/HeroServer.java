@@ -50,12 +50,7 @@ public class HeroServer {
             String message = "";
 
             message = in.readLine();
-            if (message.equals("-exit")) {
-                in.close();
-                socket.close();
-                server.close();
-                break;
-            }
+
         }
     }
 }
