@@ -55,11 +55,35 @@ public class HeroDaoImplementation implements HeroDao{
         }
     }
 
-    @Override
-    public void create(Hero hero) {
-        var sql = "insert into heroes(Id,Name,Gender,Eye Color) values(hero.Name, hero.gender, hero.eyeColor, hero.race, hero.hairColor, hero.height, hero.publisher, hero.skinColor, hero.alignment, hero.weigh)";
+    public List<Hero> findById(long id) {
+        var sql = "select * from heroes where id = '" + id + "'";
         try (var connection = dataSource.getConnection();
              var statement = connection.createStatement()) {
+            var result = statement.executeQuery(sql);
+            return mapHeroes(result);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    @Override
+    public void create(Hero hero) {
+        var sql = "insert into heroes(name, gender, eye_color, race, hair_color, height, publisher, skin, alignment, weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (var connection = dataSource.getConnection();
+             var statement = connection.prepareStatement(sql)) {
+            statement.setString(1, hero.name);
+            statement.setString(2, hero.gender);
+            statement.setString(3, hero.eyeColor);
+            statement.setString(4, hero.race);
+            statement.setString(5, hero.hairColor);
+            statement.setDouble(6, hero.height);
+            statement.setString(7, hero.publisher);
+            statement.setString(8, hero.skinColor);
+            statement.setString(9, hero.alignment);
+            statement.setDouble(10, hero.weigh);
+
             statement.executeQuery(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -68,7 +92,7 @@ public class HeroDaoImplementation implements HeroDao{
 
     @Override
     public void update(Hero hero) {
-        var sql = "update heroes set id = ?, name = ? where id = hero.id, hero.name";
+        var sql = "update heroes set id = ?, name = ? where id = ? AND name = ?";
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement(sql)) {
             statement.setLong(1, hero.id);
