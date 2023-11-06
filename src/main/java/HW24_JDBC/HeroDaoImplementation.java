@@ -45,33 +45,7 @@ public class HeroDaoImplementation implements HeroDao {
         return heroes;
     }
 
-//    @Override // Remake using prepare statement
-//    public List<Hero> findByName(String name) {
-//        var sql = "select * from public.heroes where name = ? ";
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement(sql)) {
-//            statement.setString(1, name);
-//            var result = statement.executeQuery(sql);
-//            return mapHeroes(result);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-//    @Override // Remake using prepare statement
-//    public List<Hero> findByName(String name) {
-//        var sql = "SELECT * FROM public.heroes WHERE heroes.name = ?";
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement(sql)) {
-//            statement.setString(1, name);
-//            var result = statement.executeQuery(); // Removed the SQL query argument
-//            return mapHeroes(result);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-    @Override // Remake using prepare statement
+    @Override
     public List<Hero> findByName(String name) {
         var sql = "SELECT * FROM public.heroes WHERE heroes.name = '"+name+"'";
         try (var connection = dataSource.getConnection();
@@ -83,12 +57,24 @@ public class HeroDaoImplementation implements HeroDao {
         }
     }
 
+    public List<Hero> findById(long id) {
+        var sql = "select * from heroes where id = '" + id + "'";
+        try (var connection = dataSource.getConnection();
+             var statement = connection.createStatement()) {
+            var result = statement.executeQuery(sql);
+            return mapHeroes(result);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     @Override
     public void create(Hero hero) {
-        var sql = "insert into heroes(name,eye_color, race, hair_color, height, publisher, skin," +
-                "alignment, weight, gender) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var sql = "insert into heroes(name, gender, eye_color, race, hair_color, height, publisher, skin, alignment, weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (var connection = dataSource.getConnection();
-            var statement = connection.prepareStatement(sql)) {
+             var statement = connection.prepareStatement(sql)) {
             statement.setString(1, hero.name);
             statement.setString(2, hero.gender);
             statement.setString(3, hero.eyeColor);
@@ -98,7 +84,8 @@ public class HeroDaoImplementation implements HeroDao {
             statement.setString(7, hero.publisher);
             statement.setString(8, hero.skinColor);
             statement.setString(9, hero.alignment);
-            statement.setLong(10, hero.weigh);
+            statement.setDouble(10, hero.weigh);
+
             statement.executeQuery(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
