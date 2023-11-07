@@ -4,10 +4,7 @@ import HW24_JDBC.Hero;
 import HW24_JDBC.HeroDaoImplementation;
 import HW25_Patterns_Integration_Testing.HeroDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class RestController {
         return heroDaoImpl.findById(heroId);
     }
 
-    @GetMapping("/heroes{id}")
+    @PostMapping("/heroes{id}")
     public void createHeroes(@RequestBody Hero request){
         return heroDaoImpl.create(request);
     }

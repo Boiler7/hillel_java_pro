@@ -15,12 +15,21 @@ public class HeroService {
         this.heroMovieService = heroMovieService;
     }
 
+    public HeroDto updateHero(HeroDto heroDto, long id) {
+        heroDao.update(Hero.builder()
+                        .name(heroDto.getName())
+                        .id(id)
+                        .build());
+        return getHeroById(id);
+    }
+
     public List<HeroDto> getHeroes() {
-        return  heroDao.findAll().stream()
+        return heroDao.findAll().stream()
                 .map(hero -> map(hero))
                 .toList();
     }
-    public  HeroDto map(Hero hero){
+
+    public HeroDto map(Hero hero) {
         return HeroDto.builder()
                 .name(hero.getName())
                 .movies(heroMovieService.getPlayedIn(hero.getName()))
