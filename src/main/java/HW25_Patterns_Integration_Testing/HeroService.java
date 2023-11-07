@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.util.List;
 
 public class HeroService {
+
     private final HeroDao heroDao;
     private final HeroMovieService heroMovieService;
 
@@ -22,6 +23,12 @@ public class HeroService {
         return heroDao.findAll().stream()
                 .map(this::map)
                 .toList();
+    }
+    public HeroDto map(Hero hero) {
+        return new HeroDto.Builder()
+                .name(hero.getName())
+                .movies(heroMovieService.getPlayedIn(hero.getName()))
+                .build();
     }
 
     public HeroDto getHeroById(long id) {
@@ -45,12 +52,6 @@ public class HeroService {
         return getHeroById(id);
     }
 
-    public HeroDto map(Hero hero) {
-        return HeroDto.builder()
-                .name(hero.getName())
-                .movies(heroMovieService.getPlayedIn(hero.getName()))
-                .build();
-    }
 
     public boolean delete(long id){
         return heroDao.delete(id);

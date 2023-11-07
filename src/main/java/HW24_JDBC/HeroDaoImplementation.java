@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class HeroDaoImplementation implements HeroDao{
+public class HeroDaoImplementation implements HeroDao {
     private final DataSource dataSource;
+    private ArrayList<Hero> heroes;
+
     @Override
     public List<Hero> findAll() {
         var sql = "select * from heroes";
@@ -24,26 +26,52 @@ public class HeroDaoImplementation implements HeroDao{
     }
 
     private ArrayList<Hero> mapHeroes(ResultSet result) throws SQLException {
-        var students = new ArrayList<Hero>();
+        heroes = new ArrayList<Hero>();
         while (result.next()) {
-            students.add(Hero.builder()
-                            .id(result.getLong("Id"))
-                    .name(result.getString("Name"))
-                    .gender(result.getString("Gender"))
-                    .eyeColor(result.getString("Eye Color"))
-                    .race(result.getString("Race"))
-                    .hairColor(result.getString("Hair Color"))
-                    .height(result.getDouble("Height"))
-                    .publisher(result.getString("Publisher"))
-                    .skinColor(result.getString("Skin Color"))
-                    .alignment(result.getString("Alignment"))
-                    .weigh(result.getInt("Weight"))
+            heroes.add(Hero.builder()
+                    .id(result.getLong("id"))
+                    .name(result.getString("name"))
+                    .gender(result.getString("gender"))
+                    .eyeColor(result.getString("eye_color"))
+                    .race(result.getString("race"))
+                    .hairColor(result.getString("hair_color"))
+                    .height(result.getDouble("height"))
+                    .publisher(result.getString("publisher"))
+                    .skinColor(result.getString("skin"))
+                    .alignment(result.getString("alignment"))
+                    .weigh(result.getInt("weight"))
                     .build());
         }
-        return students;
+        return heroes;
     }
 
-    @Override
+//    @Override // Remake using prepare statement
+//    public List<Hero> findByName(String name) {
+//        var sql = "select * from public.heroes where name = ? ";
+//        try (var connection = dataSource.getConnection();
+//             var statement = connection.prepareStatement(sql)) {
+//            statement.setString(1, name);
+//            var result = statement.executeQuery(sql);
+//            return mapHeroes(result);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+//    @Override // Remake using prepare statement
+//    public List<Hero> findByName(String name) {
+//        var sql = "SELECT * FROM public.heroes WHERE heroes.name = ?";
+//        try (var connection = dataSource.getConnection();
+//             var statement = connection.prepareStatement(sql)) {
+//            statement.setString(1, name);
+//            var result = statement.executeQuery(); // Removed the SQL query argument
+//            return mapHeroes(result);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    @Override // Remake using prepare statement
     public List<Hero> findByName(String name) {
         var sql = "select * from heroes where Name = '" + name + "'";
         try (var connection = dataSource.getConnection();
