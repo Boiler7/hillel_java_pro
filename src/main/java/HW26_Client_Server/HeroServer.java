@@ -23,39 +23,37 @@ public class HeroServer {
     public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
         server = new ServerSocket(SERVER_PORT);
         Socket socket = server.accept();
-
+//        var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         var executor = Executors.newFixedThreadPool(2);
-
+        String message = "";
+        Future<?> runnableFuture = executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    HeroProtocol.run(socket);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }finally {
+                    try{
+                        socket.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
         while (true) {
             System.out.println("Waiting for the client request");
 
-            Future<?> runnableFuture = executor.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        HeroProtocol.run(socket);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    } finally {
-                        try {
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+            runnableFuture.get();
+            try (var in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+                message = in.readLine();
+                if (message.equals("-exit")) {
+                    break;
                 }
-            });
-
-            var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String message;
-
-            message = in.readLine();
-            if (message.equals("-exit")) {
-                System.out.println("Client disconnected");
-                in.close();
-                socket.close();
-                break;
             }
+
         }
+        socket.close();
     }
 }

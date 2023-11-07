@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.List;
 
 public class HeroProtocol {
     public static void run(Socket socket) throws IOException {
@@ -26,7 +27,9 @@ public class HeroProtocol {
                 socket.close();
                 out.close();
                 break;
-            } else if (message.startsWith("-name")) {
+            }
+
+            if (message.startsWith("-name")) {
                 System.out.println("Finding request");
                 String heroName = message.substring(6);
 
@@ -36,14 +39,12 @@ public class HeroProtocol {
                 System.out.println("Hero's name: " + hero.getName());
 
                 var herodto = heroService.map(hero);
-                System.out.println(herodto);
                 if (herodto.getMovies() == null & herodto.getName() == null) {
                     out.println("Hero is not found");
                 } else {
                     System.out.println("Send hero");
-                    out.println("Name:" + herodto.getName() + "\tMoveies: " + herodto.getMovies());
+                    out.println("Name:" +herodto.getName() + "\tMoveies: " + herodto.getMovies());
                 }
-
             }
         }
     }
