@@ -2,11 +2,12 @@ package HW25_Patterns_Integration_Testing;
 
 import HW24_JDBC.Hero;
 import HW24_JDBC.HeroDao;
+import org.postgresql.ds.PGSimpleDataSource;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class HeroService {
-
     private final HeroDao heroDao;
     private final HeroMovieService heroMovieService;
 
@@ -15,23 +16,51 @@ public class HeroService {
         this.heroMovieService = heroMovieService;
     }
 
-    public HeroDto updateHero(HeroDto heroDto, long id) {
+    public List<HeroDto> getHeroes() {
+        return heroDao.findAll().stream()
+                .map(this::map)
+                .toList();
+    }
+
+    public HeroDto getHeroById(long id) {
+        return map(heroDao.findById(id).get(0));
+    }
+
+
+    public void create(HeroCreationRequest request) {
+        var heroDaoImp = new HeroDaoImplementation(dataSource());
+        var hero = new Hero(null, request.name(), request.gender(), request.eyeColor(), request.race(), request.hairColor(),
+                request.height(), request.publisher(), request.skinColor(), request.alignment(), request.weigh());
+        heroDaoImp.create(hero);
+    }
+
+
+    public HeroDto updateHero(long id, HeroDto heroDto) {
         heroDao.update(Hero.builder()
-                        .name(heroDto.getName())
-                        .id(id)
-                        .build());
+                .name(heroDto.getName())
+                .id(id)
+                .build());
         return getHeroById(id);
     }
 
-    public List<HeroDto> getHeroes() {
-        return  heroDao.findAll().stream()
-                .map(hero -> map(hero))
-                .toList();
-    }
+
     public HeroDto map(Hero hero) {
         return new HeroDto.Builder()
                 .name(hero.getName())
                 .movies(heroMovieService.getPlayedIn(hero.getName()))
                 .build();
+    }
+
+    public boolean delete(long id){
+        return heroDao.delete(id);
+    }
+
+    private static DataSource dataSource() {
+        var ds = new PGSimpleDataSource();
+//        ds.setServerNames(new String[]{"localhost"});
+        ds.setDatabaseName("postgres");
+        ds.setUser("hillel");
+        ds.setPassword("hillel");
+        return ds;
     }
 }

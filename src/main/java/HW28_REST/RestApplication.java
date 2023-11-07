@@ -1,24 +1,19 @@
 package HW28_REST;
 
-import HW24_JDBC.Hero;
 import HW24_JDBC.HeroDaoImplementation;
-import HW25_Patterns_Integration_Testing.HeroDto;
-import HW25_Patterns_Integration_Testing.HeroFabricImp;
 import HW25_Patterns_Integration_Testing.HeroMovieService;
 import HW25_Patterns_Integration_Testing.HeroService;
-import lombok.RequiredArgsConstructor;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
-import java.util.List;
 
 @SpringBootApplication
 public class RestApplication {
     @Bean
     public HeroService heroService(){
-        return new HeroService(new HeroDaoImplementation(dataSource()),new HeroMovieService());
+        return new HeroService(new HeroDaoImplementation(dataSource()), new HeroMovieService());
     }
 
     private static DataSource dataSource() {
