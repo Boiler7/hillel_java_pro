@@ -26,7 +26,6 @@ public class ListFunction {
 
         calcOccurrence(items);
 
-
     }
 
     public static int countOccurrence(List<String> list, String string) {
