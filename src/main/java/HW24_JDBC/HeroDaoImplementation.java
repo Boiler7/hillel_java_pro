@@ -20,13 +20,13 @@ public class HeroDaoImplementation implements HeroDao {
              var statement = connection.createStatement()){
             var result = statement.executeQuery(sql);
             return mapHeroes(result);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     private ArrayList<Hero> mapHeroes(ResultSet result) throws SQLException {
-        heroes = new ArrayList<Hero>();
+        var heroes = new ArrayList<Hero>();
         while (result.next()) {
             heroes.add(Hero.builder()
                     .id(result.getLong("id"))
@@ -73,7 +73,7 @@ public class HeroDaoImplementation implements HeroDao {
 
     @Override // Remake using prepare statement
     public List<Hero> findByName(String name) {
-        var sql = "select * from heroes where Name = '" + name + "'";
+        var sql = "SELECT * FROM public.heroes WHERE heroes.name = '"+name+"'";
         try (var connection = dataSource.getConnection();
              var statement = connection.createStatement()) {
             var result = statement.executeQuery(sql);
