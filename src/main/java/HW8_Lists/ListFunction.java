@@ -29,38 +29,41 @@ public class ListFunction {
 
     }
 
-    public static int countOccurrence(List<String> list, String string){
+    public static int countOccurrence(List<String> list, String string) {
         int occurence = 0;
-        for(var elements : list){
-            if(elements.equals(string)) {
+        for (var elements : list) {
+            if (elements.equals(string)) {
                 occurence++;
             }
         }
         return occurence;
     }
-    public static List<Integer> toList(int[] array){
-       List<Integer> list = new ArrayList<>();
-        for (int a: array) {
+
+    public static List<Integer> toList(int[] array) {
+        List<Integer> list = new ArrayList<>();
+        for (int a : array) {
             list.add(a);
         }
         return list;
     }
-    public static List<String> findUnique(List<String> list){
+
+    public static List<String> findUnique(List<String> list) {
         List<String> uniqueNumbers = new ArrayList<>();
-        for (var elements: list) {
-            if(!uniqueNumbers.contains(elements)){
+        for (var elements : list) {
+            if (!uniqueNumbers.contains(elements)) {
                 uniqueNumbers.add(elements);
             }
         }
         return uniqueNumbers;
     }
 
-    public record Myresult(String name, int occurance){}
+    public record Myresult(String name, int occurance) {
+    }
 
     public static void calcOccurrence(List<String> list) {
         var result = new ArrayList<>(findUnique(list));
 
-        for (var res: result){
+        for (var res : result) {
             System.out.println(res + ": " + countOccurrence(list, res));
         }
     }
