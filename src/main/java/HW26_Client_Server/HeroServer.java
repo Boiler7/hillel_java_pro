@@ -1,59 +1,19 @@
 package HW26_Client_Server;
 
-import HW24_JDBC.HeroDaoImplementation;
-import HW25_Patterns_Integration_Testing.HeroMovieService;
-import HW25_Patterns_Integration_Testing.HeroService;
-import HW7_Exceptions.ArraySizeException;
-import org.postgresql.ds.PGSimpleDataSource;
-
-import javax.sql.DataSource;
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class HeroServer {
     public final static String SERVER_HOST = "localhost";
     public final static int SERVER_PORT = 8080;
-    private static ServerSocket server;
 
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-        server = new ServerSocket(SERVER_PORT);
-        Socket socket = server.accept();
-//        var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    public static void main(String[] args) throws IOException {
         var executor = Executors.newFixedThreadPool(2);
-        String message = "";
-        Future<?> runnableFuture = executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    HeroProtocol.run(socket);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }finally {
-                    try{
-                        socket.close();
-                    }catch (IOException e){
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        var server = new ServerSocket(SERVER_PORT);
         while (true) {
-            System.out.println("Waiting for the client request");
-
-            runnableFuture.get();
-            try (var in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-                message = in.readLine();
-                if (message.equals("-exit")) {
-                    break;
-                }
-            }
-
+            executor.submit(() -> new HeroHandler(server.accept()));
         }
-        socket.close();
     }
 }

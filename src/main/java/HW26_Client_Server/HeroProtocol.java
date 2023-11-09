@@ -15,16 +15,15 @@ import java.util.List;
 
 public class HeroProtocol {
     public static void run(Socket socket) throws IOException {
-        while (true) {
             var out = new PrintWriter(socket.getOutputStream(), true);
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+        while (true) {
             String message = in.readLine();
 
             if (message.equals("-exit")) {
                 System.out.println("Client disconnected");
                 in.close();
-                socket.close();
                 out.close();
                 break;
             }
@@ -45,6 +44,8 @@ public class HeroProtocol {
                     System.out.println("Send hero");
                     out.println("Name:" +herodto.getName() + "\tMoveies: " + herodto.getMovies());
                 }
+            } else {
+                out.println();
             }
         }
     }
