@@ -30,13 +30,6 @@ public class HeroService {
     }
 
 
-    public void create(HeroCreationRequest request) {
-        var heroDaoImp = new HeroDaoImplementation(dataSource());
-        var hero = new Hero(null, request.name(), request.gender(), request.eyeColor(), request.race(), request.hairColor(),
-                request.height(), request.publisher(), request.skinColor(), request.alignment(), request.weigh());
-        heroDaoImp.create(hero);
-    }
-
 
     public HeroDto updateHero(long id, HeroDto heroDto) {
         heroDao.update(Hero.builder()
@@ -46,8 +39,22 @@ public class HeroService {
         return getHeroById(id);
     }
 
+
+
+
+
+    public void create(HeroCreationRequest request) {
+        var heroDaoImp = new HeroDaoImplementation(dataSource());
+        var hero = new Hero(null, request.name(), request.gender(), request.eyeColor(), request.race(), request.hairColor(),
+                request.height(), request.publisher(), request.skinColor(), request.alignment(), request.weigh());
+        heroDaoImp.create(hero);
+    }
+
+
+
+
     public HeroDto map(Hero hero) {
-        return HeroDto.builder()
+        return new HeroDto.Builder()
                 .name(hero.getName())
                 .movies(heroMovieService.getPlayedIn(hero.getName()))
                 .build();
