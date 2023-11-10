@@ -6,7 +6,6 @@ import HW24_JDBC.HeroDaoImplementation;
 import HW28_REST.HeroCreationRequest;
 import org.postgresql.ds.PGSimpleDataSource;
 
-
 import javax.sql.DataSource;
 import java.util.List;
 

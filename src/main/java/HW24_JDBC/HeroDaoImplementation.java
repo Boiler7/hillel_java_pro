@@ -25,7 +25,7 @@ public class HeroDaoImplementation implements HeroDao{
     }
 
     private ArrayList<Hero> mapHeroes(ResultSet result) throws SQLException {
-        heroes = new ArrayList<Hero>();
+        var heroes = new ArrayList<Hero>();
         while (result.next()) {
             heroes.add(Hero.builder()
                     .id(result.getLong("id"))
