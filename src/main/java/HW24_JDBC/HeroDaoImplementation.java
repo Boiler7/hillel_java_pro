@@ -25,7 +25,7 @@ public class HeroDaoImplementation implements HeroDao{
     }
 
     private ArrayList<Hero> mapHeroes(ResultSet result) throws SQLException {
-        heroes = new ArrayList<Hero>();
+        var heroes = new ArrayList<Hero>();
         while (result.next()) {
             heroes.add(Hero.builder()
                     .id(result.getLong("id"))
@@ -44,33 +44,7 @@ public class HeroDaoImplementation implements HeroDao{
         return heroes;
     }
 
-//    @Override // Remake using prepare statement
-//    public List<Hero> findByName(String name) {
-//        var sql = "select * from public.heroes where name = ? ";
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement(sql)) {
-//            statement.setString(1, name);
-//            var result = statement.executeQuery(sql);
-//            return mapHeroes(result);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-//    @Override // Remake using prepare statement
-//    public List<Hero> findByName(String name) {
-//        var sql = "SELECT * FROM public.heroes WHERE heroes.name = ?";
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement(sql)) {
-//            statement.setString(1, name);
-//            var result = statement.executeQuery(); // Removed the SQL query argument
-//            return mapHeroes(result);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-    @Override // Remake using prepare statement
+    @Override
     public List<Hero> findByName(String name) {
         var sql = "SELECT * FROM public.heroes WHERE heroes.name = '"+name+"'";
         try (var connection = dataSource.getConnection();
