@@ -16,10 +16,10 @@ public class RestApplication {
     public HeroService heroService(){
         return new HeroService(new HeroDaoImplementation(dataSource()), new HeroMovieService());
     }
-
     public static void main(String[] args) {
         SpringApplication.run(RestApplication.class, args);
     }
+
     private static DataSource dataSource() {
         var ds = new PGSimpleDataSource();
         ds.setServerNames(new String[]{"localhost"});
