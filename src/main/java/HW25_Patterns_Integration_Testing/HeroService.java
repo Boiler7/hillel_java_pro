@@ -24,24 +24,11 @@ public class HeroService {
                 .map(this::map)
                 .toList();
     }
-    public HeroDto map(Hero hero) {
-        return new HeroDto.Builder()
-                .name(hero.getName())
-                .movies(heroMovieService.getPlayedIn(hero.getName()))
-                .build();
-    }
 
     public HeroDto getHeroById(long id) {
         return map(heroDao.findById(id).get(0));
     }
 
-
-    public void create(HeroCreationRequest request) {
-        var heroDaoImp = new HeroDaoImplementation(dataSource());
-        var hero = new Hero(null, request.name(), request.gender(), request.eyeColor(), request.race(), request.hairColor(),
-                request.height(), request.publisher(), request.skinColor(), request.alignment(), request.weigh());
-        heroDaoImp.create(hero);
-    }
 
 
     public HeroDto updateHero(long id, HeroDto heroDto) {
@@ -52,6 +39,26 @@ public class HeroService {
         return getHeroById(id);
     }
 
+
+
+
+
+    public void create(HeroCreationRequest request) {
+        var heroDaoImp = new HeroDaoImplementation(dataSource());
+        var hero = new Hero(null, request.name(), request.gender(), request.eyeColor(), request.race(), request.hairColor(),
+                request.height(), request.publisher(), request.skinColor(), request.alignment(), request.weigh());
+        heroDaoImp.create(hero);
+    }
+
+
+
+
+    public HeroDto map(Hero hero) {
+        return new HeroDto.Builder()
+                .name(hero.getName())
+                .movies(heroMovieService.getPlayedIn(hero.getName()))
+                .build();
+    }
 
     public boolean delete(long id){
         return heroDao.delete(id);
