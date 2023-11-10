@@ -1,4 +1,4 @@
-package HW29_Spring_Core;
+package hw29.spring.core;
 
 import HW25_Patterns_Integration_Testing.HeroService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

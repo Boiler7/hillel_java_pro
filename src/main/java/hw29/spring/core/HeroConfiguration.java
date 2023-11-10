@@ -1,4 +1,4 @@
-package HW29_Spring_Core;
+package hw29.spring.core;
 
 import HW24_JDBC.HeroDao;
 import HW24_JDBC.HeroDaoImplementation;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("HW29_Spring_Core")
+@ComponentScan("hw29.spring.core")
 public class HeroConfiguration {
     @Bean
     public HeroService heroService(){
