@@ -9,15 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class HeroDaoImplementation implements HeroDao {
+public class HeroDaoImplementation implements HeroDao{
     private final DataSource dataSource;
     private ArrayList<Hero> heroes;
-
     @Override
     public List<Hero> findAll() {
         var sql = "select * from heroes";
         try (var connection = dataSource.getConnection();
-             var statement = connection.createStatement()) {
+             var statement = connection.createStatement()){
             var result = statement.executeQuery(sql);
             return mapHeroes(result);
         } catch (SQLException e) {
@@ -94,12 +93,11 @@ public class HeroDaoImplementation implements HeroDao {
 
     @Override
     public void update(Hero hero) {
-        var sql = "update heroes set id = ?, name = ? where name = ?";
+        var sql = "update heroes set id = ?, name = ? where id = ? AND name = ?";
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement(sql)) {
             statement.setLong(1, hero.id);
             statement.setString(2, hero.name);
-            statement.setString(3, hero.name);
             statement.executeQuery(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -108,14 +106,14 @@ public class HeroDaoImplementation implements HeroDao {
 
     @Override
     public boolean delete(Long id) {
-        var sql = "delete from heroes where Id = ?";
-        try (var connection = dataSource.getConnection();
-             var statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, id);
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            var sql = "delete from heroes where Id = ?";
+            try (var connection = dataSource.getConnection();
+                 var statement = connection.prepareStatement(sql)) {
+                statement.setLong(1, id);
+                statement.executeQuery(sql);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         return false;
     }
 }
