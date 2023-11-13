@@ -20,7 +20,7 @@ public class StudentDao {
     public StudentDao(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
-    void create() {
+    public void create() {
         try (var session = sessionFactory.openSession()) {
             var studentName = "Test_" + UUID.randomUUID().toString().substring(0, 5);
             var id = session.save(Student.builder()
@@ -57,13 +57,13 @@ public class StudentDao {
         }
     }
 
-    public void updateStudent(Long id, Student newStudent) {
+    public Student updateStudent(Long id, Student newStudent) {
         try (var session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            var student = session.find(Student.class, id);
-            System.out.println(student);
-            session.merge(newStudent);
+            var student = findById(id);
+            session.update(student.getName(), newStudent);
             transaction.commit();
+            return findById(newStudent.getId());
         }
     }
 

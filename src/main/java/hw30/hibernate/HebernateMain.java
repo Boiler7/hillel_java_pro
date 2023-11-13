@@ -12,19 +12,21 @@ public class HebernateMain {
 
         var studentDao = new StudentDao(sessionFactory);
 
-//        studentDao.create();
-//
-//        var studentsList1 = studentDao.getAllStudents();
-//        System.out.println(studentsList1);
+        studentDao.create();
+
+        var studentsList1 = studentDao.getAllStudents();
+        System.out.println(studentsList1);
 
         var student = Student.builder()
-                .id(5L)
+                .id(14L)
                 .name("Kyr111")
                 .email("kyr111@example.com")
                 .build();
 
-        studentDao.updateStudent(5L, student);
+        studentDao.updateStudent(14L, student);
 
-//        System.out.println(studentDao.findById(1L));
+        studentDao.deleteStudent(16L);
+
+        System.out.println(studentDao.findById(16L));
     }
 }
