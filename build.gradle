@@ -18,6 +18,9 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:2.15.2"
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2"
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework:spring-orm'
+    implementation 'org.hibernate:hibernate-core:6.3.1.Final'
 
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
