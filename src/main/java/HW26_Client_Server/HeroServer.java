@@ -2,6 +2,7 @@ package HW26_Client_Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
@@ -13,7 +14,8 @@ public class HeroServer {
         var executor = Executors.newFixedThreadPool(2);
         var server = new ServerSocket(SERVER_PORT);
         while (true) {
-            executor.submit(() -> new HeroHandler(server.accept()));
+            Socket socket = server.accept();
+            executor.submit(new HeroHandler(socket));
         }
     }
 }

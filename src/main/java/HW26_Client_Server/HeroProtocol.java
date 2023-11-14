@@ -17,9 +17,10 @@ public class HeroProtocol {
     public static void run(Socket socket) throws IOException {
             var out = new PrintWriter(socket.getOutputStream(), true);
             var in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String message = "";
 
         while (true) {
-            String message = in.readLine();
+            message = in.readLine();
 
             if (message.equals("-exit")) {
                 System.out.println("Client disconnected");
@@ -42,10 +43,8 @@ public class HeroProtocol {
                     out.println("Hero is not found");
                 } else {
                     System.out.println("Send hero");
-                    out.println("Name:" +herodto.getName() + "\tMoveies: " + herodto.getMovies());
+                    out.println("Name:" +herodto.getName() + "\tMovies: " + herodto.getMovies());
                 }
-            } else {
-                out.println();
             }
         }
     }

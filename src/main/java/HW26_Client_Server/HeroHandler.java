@@ -13,6 +13,7 @@ public class HeroHandler implements Runnable{
     @Override
     public void run() {
         try {
+            System.out.println("Start");
             HeroProtocol.run(socket);
         } catch (IOException e) {
             throw new RuntimeException(e);

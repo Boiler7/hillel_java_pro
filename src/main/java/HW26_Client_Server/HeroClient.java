@@ -24,6 +24,7 @@ public class HeroClient {
                     out.close();
                     break;
                 }
+
                 String messageFromServer = in.readLine();
                 System.out.println("Server: " + (messageFromServer));
             }
