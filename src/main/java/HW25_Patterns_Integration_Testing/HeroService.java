@@ -30,7 +30,6 @@ public class HeroService {
     }
 
 
-
     public HeroDto updateHero(long id, HeroDto heroDto) {
         heroDao.update(Hero.builder()
                 .name(heroDto.getName())
@@ -38,9 +37,6 @@ public class HeroService {
                 .build());
         return getHeroById(id);
     }
-
-
-
 
 
     public void create(HeroCreationRequest request) {
@@ -51,8 +47,6 @@ public class HeroService {
     }
 
 
-
-
     public HeroDto map(Hero hero) {
         return new HeroDto.Builder()
                 .name(hero.getName())
@@ -60,7 +54,7 @@ public class HeroService {
                 .build();
     }
 
-    public boolean delete(long id){
+    public boolean delete(long id) {
         return heroDao.delete(id);
     }
 
