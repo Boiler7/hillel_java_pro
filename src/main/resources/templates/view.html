@@ -3,7 +3,7 @@
 <div th:switch="${hero}">
     <h2 th:case="null">No hero yet!</h2>
     <div th:case="*">
-        <h2>Heroes</h2>
+        <h2 style="text-align: center">Heroes:</h2>
         <table>
             <thead>
             <tr>
@@ -41,7 +41,6 @@
                 <br>
 
                 <a th:href="@{/}">Back</a>
-
             </tr>
             </tbody>
         </table>

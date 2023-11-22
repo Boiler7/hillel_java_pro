@@ -54,8 +54,8 @@ public class SpringMvcController {
         return "redirect:/";
     }
 
-    @GetMapping("/look/{id}")
-    public String look(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/view/{id}")
+    public String view(@PathVariable("id") Long id, Model model) {
         model.addAttribute("hero", heroService.getHeroById(id));
         return "view";
     }

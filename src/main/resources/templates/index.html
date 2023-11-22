@@ -3,7 +3,7 @@
 <div th:switch="${heroes}">
     <h2 th:case="null">No hero yet!</h2>
     <div th:case="*">
-        <h2>Heroes</h2>
+        <h2 style="text-align: center">Heroes:</h2>
         <p><a href="/create">Add a new hero</a></p>
         <table>
             <thead>
@@ -20,7 +20,7 @@
                 <th>Gender</th>
                 <th>Edit</th>
                 <th>Delete</th>
-                <th>Look</th>
+                <th>View</th>
             </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
 
                 <td><a th:href="@{/edit/{id}(id=${hero.id})}">Edit</a></td>
                 <td><a th:href="@{/delete/{id}(id=${hero.id})}">Delete</a></td>
-                <td><a th:href="@{/look/{id}(id=${hero.id})}">Look</a></td>
+                <td><a th:href="@{/view/{id}(id=${hero.id})}">View</a></td>
             </tr>
             </tbody>
         </table>
