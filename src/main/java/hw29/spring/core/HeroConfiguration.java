@@ -15,16 +15,16 @@ import javax.sql.DataSource;
 @ComponentScan("hw29.spring.core")
 public class HeroConfiguration {
     @Bean
-    public HeroService heroService(){
-        return new HeroService(new HeroDaoImplementation(dataSource()), new HeroMovieService());
+    public HeroService heroService(HeroDao heroDao, HeroMovieService heroMovieService){
+        return new HeroService(heroDao, heroMovieService);
     }
     @Bean
-    public HeroDao heroDao(){
-        return new HeroDaoImplementation(dataSource());
+    public HeroDao heroDao(DataSource dataSource){
+        return new HeroDaoImplementation(dataSource);
     }
 
     @Bean
-    private static DataSource dataSource() {
+    public DataSource dataSource() {
         var ds = new PGSimpleDataSource();
         ds.setServerNames(new String[]{"localhost"});
         ds.setDatabaseName("postgres");

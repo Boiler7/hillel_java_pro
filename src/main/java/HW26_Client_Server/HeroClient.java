@@ -1,12 +1,10 @@
 package HW26_Client_Server;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class HeroClient {
-    private static ServerSocket server;
     public static void main(String[] args)  {
         try (Socket socket = new Socket(HeroServer.SERVER_HOST, HeroServer.SERVER_PORT)) {
             Scanner scanner = new Scanner(System.in);
@@ -24,6 +22,7 @@ public class HeroClient {
                     out.close();
                     break;
                 }
+
                 String messageFromServer = in.readLine();
                 System.out.println("Server: " + (messageFromServer));
             }
