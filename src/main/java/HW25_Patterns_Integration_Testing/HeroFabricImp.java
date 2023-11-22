@@ -22,6 +22,6 @@ public class HeroFabricImp implements HeroFabric{
         return ds;
     }
     public HeroService createService(List<Hero> db){
-        return new HeroService(new DummyHeroDao(db),new HeroMovieService());
+        return new HeroService( new DummyHeroDao(db),new HeroMovieService());
     }
 }

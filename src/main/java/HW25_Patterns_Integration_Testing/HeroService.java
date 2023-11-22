@@ -30,37 +30,48 @@ public class HeroService {
     }
 
 
-
     public HeroDto updateHero(long id, HeroDto heroDto) {
         heroDao.update(Hero.builder()
+                .id(heroDto.getId())
                 .name(heroDto.getName())
-                .id(id)
+                .eyeColor(heroDto.getEyeColor())
+                .race(heroDto.getRace())
+                .hairColor(heroDto.getHairColor())
+                .height(heroDto.getHeight())
+                .publisher(heroDto.getPublisher())
+                .skinColor(heroDto.getSkinColor())
+                .alignment(heroDto.getAlignment())
+                .weight(heroDto.getWeight())
+                .gender(heroDto.getGender())
                 .build());
         return getHeroById(id);
     }
 
-
-
-
-
     public void create(HeroCreationRequest request) {
         var heroDaoImp = new HeroDaoImplementation(dataSource());
         var hero = new Hero(null, request.name(), request.gender(), request.eyeColor(), request.race(), request.hairColor(),
-                request.height(), request.publisher(), request.skinColor(), request.alignment(), request.weigh());
+                request.height(), request.publisher(), request.skinColor(), request.alignment(), request.weight());
         heroDaoImp.create(hero);
     }
 
 
-
-
     public HeroDto map(Hero hero) {
-        return new HeroDto.Builder()
+        return  HeroDto.builder()
+                .id(hero.getId())
                 .name(hero.getName())
-                .movies(heroMovieService.getPlayedIn(hero.getName()))
+                .eyeColor(hero.getEyeColor())
+                .race(hero.getRace())
+                .hairColor(hero.getHairColor())
+                .height(hero.getHeight())
+                .publisher(hero.getPublisher())
+                .skinColor(hero.getSkinColor())
+                .alignment(hero.getAlignment())
+                .weight(hero.getWeight())
+                .gender(hero.getGender())
                 .build();
     }
 
-    public boolean delete(long id){
+    public boolean delete(long id) {
         return heroDao.delete(id);
     }
 
