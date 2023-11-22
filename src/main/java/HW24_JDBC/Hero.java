@@ -20,5 +20,5 @@ public class Hero  {
     String publisher;
     String skinColor;
     String alignment;
-    int weigh;
+    int weight;
 }
