@@ -38,7 +38,7 @@ public class HeroDaoImplementation implements HeroDao{
                     .publisher(result.getString("publisher"))
                     .skinColor(result.getString("skin"))
                     .alignment(result.getString("alignment"))
-                    .weigh(result.getInt("weight"))
+                    .weight(result.getInt("weight"))
                     .build());
         }
         return heroes;
@@ -71,9 +71,11 @@ public class HeroDaoImplementation implements HeroDao{
 
     @Override
     public void create(Hero hero) {
-        var sql = "insert into heroes(name, gender, eye_color, race, hair_color, height, publisher, skin, alignment, weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var sql = "insert into heroes(name, gender, eye_color, race, hair_color, height, publisher, skin, alignment," +
+                " weight) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (var connection = dataSource.getConnection();
-             var statement = connection.prepareStatement(sql)) {
+            var statement = connection.prepareStatement(sql)) {
+
             statement.setString(1, hero.name);
             statement.setString(2, hero.gender);
             statement.setString(3, hero.eyeColor);
@@ -83,9 +85,9 @@ public class HeroDaoImplementation implements HeroDao{
             statement.setString(7, hero.publisher);
             statement.setString(8, hero.skinColor);
             statement.setString(9, hero.alignment);
-            statement.setDouble(10, hero.weigh);
+            statement.setDouble(10, hero.weight);
 
-            statement.executeQuery(sql);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -93,12 +95,22 @@ public class HeroDaoImplementation implements HeroDao{
 
     @Override
     public void update(Hero hero) {
-        var sql = "update heroes set id = ?, name = ? where id = ? AND name = ?";
+        var sql = "update heroes set name = ?, eye_color = ?, race = ?, hair_color = ?, height = ?, publisher = ?, " +
+                "skin = ?, alignment = ?, weight = ?, gender = ? where id = ?";
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement(sql)) {
-            statement.setLong(1, hero.id);
-            statement.setString(2, hero.name);
-            statement.executeQuery(sql);
+            statement.setString(1, hero.name);
+            statement.setString(2, hero.eyeColor);
+            statement.setString(3, hero.race);
+            statement.setString(4, hero.hairColor);
+            statement.setDouble(5, hero.height);
+            statement.setString(6, hero.publisher);
+            statement.setString(7, hero.skinColor);
+            statement.setString(8, hero.alignment);
+            statement.setLong(9, hero.weight);
+            statement.setString(10, hero.gender);
+            statement.setLong(11, hero.id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -106,11 +118,11 @@ public class HeroDaoImplementation implements HeroDao{
 
     @Override
     public boolean delete(Long id) {
-            var sql = "delete from heroes where Id = ?";
+            var sql = "delete from heroes where id = ?";
             try (var connection = dataSource.getConnection();
                  var statement = connection.prepareStatement(sql)) {
                 statement.setLong(1, id);
-                statement.executeQuery(sql);
+                statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

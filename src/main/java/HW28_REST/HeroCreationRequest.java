@@ -1,7 +1,7 @@
 package HW28_REST;
 
 public record HeroCreationRequest(
-        Long id,
+//        Long id,
         String name,
         String gender,
         String eyeColor,
@@ -11,5 +11,8 @@ public record HeroCreationRequest(
         String publisher,
         String skinColor,
         String alignment,
-        int weigh
-){}
+        int weight
+){
+
+
+}

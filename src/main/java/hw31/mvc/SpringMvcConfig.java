@@ -1,25 +1,23 @@
-package HW28_REST;
+package hw31.mvc;
 
 import HW24_JDBC.HeroDaoImplementation;
 import HW25_Patterns_Integration_Testing.HeroMovieService;
 import HW25_Patterns_Integration_Testing.HeroService;
 import org.postgresql.ds.PGSimpleDataSource;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-@SpringBootApplication
-public class RestApplication {
+@Configuration
+public class SpringMvcConfig {
     @Bean
-    public HeroService heroService(){
-        return new HeroService(new HeroDaoImplementation(dataSource()), new HeroMovieService());
+    public HeroService heroService(DataSource dataSource) {
+        return new HeroService(new HeroDaoImplementation(dataSource), new HeroMovieService());
     }
-//    public static void main(String[] args) {
-//        SpringApplication.run(RestApplication.class, args);
-//    }
 
-    private static DataSource dataSource() {
+    @Bean
+    public DataSource dataSource() {
         var ds = new PGSimpleDataSource();
         ds.setServerNames(new String[]{"localhost"});
         ds.setDatabaseName("postgres");

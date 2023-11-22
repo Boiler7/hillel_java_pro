@@ -18,10 +18,10 @@ public class RestController {
             return heroService.getHeroes();
         }
 
-    @GetMapping("/heroes{id}")
-    public HeroDto getStudent(@PathVariable("id") long heroId){
-        return heroService.getHeroById(heroId);
-    }
+//    @GetMapping("/heroes{id}")
+//    public HeroDto getStudent(@PathVariable("id") long heroId){
+//        return heroService.getById(heroId);
+//    }
 
     @PostMapping("/heroes{id}")
     public void createHeroes(@RequestBody HeroCreationRequest request){
