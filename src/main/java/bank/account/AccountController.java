@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -15,11 +16,14 @@ import java.util.List;
 public class AccountController {
     private final AccountService accountService;
 
-    @GetMapping("")
+    @GetMapping()
     public List<AccountDto> accounts(Pageable pageable) {
         return accountService.getAccounts(pageable);
     }
-
+    @GetMapping("/{id}")
+    public Optional<AccountDto> account(@PathVariable("id") Long id){
+        return accountService.getAccount(id);
+    }
     @PostMapping("create")
     public AccountDto createAccount(@RequestBody AccountDto request) {
         return accountService.create(request);
@@ -27,12 +31,13 @@ public class AccountController {
 
     @PutMapping("/update/{id}")
     public AccountDto updateAccount(
-            @PathVariable("id") String id) {
-        return accountService.update(id);
+            @PathVariable("id") Long id,
+            @RequestBody AccountDto request) {
+        return accountService.update(id, request);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteAccount(@PathVariable("id") Long id) {
-        accountService.delete(id);
+    public void deleteAccount(@PathVariable("id") String uid) {
+        accountService.delete(uid);
     }
 }

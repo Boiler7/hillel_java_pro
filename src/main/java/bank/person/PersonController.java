@@ -18,9 +18,9 @@ public class PersonController {
         return personService.getPersons(pageable);
     }
 
-    @GetMapping("/{id}")
-    public PersonDto person(@PathVariable("id") String id) {
-        return personService.getPerson(id);
+    @GetMapping("/{uid}")
+    public PersonDto person(@PathVariable("uid") String uid) {
+        return personService.getPerson(uid);
     }
 
     @PostMapping
@@ -28,16 +28,16 @@ public class PersonController {
         return personService.create(request);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{uid}")
     public PersonDto updatedPerson(
-            @PathVariable("id") Long id,
+            @PathVariable("uid") String uid,
             @RequestBody PersonDto request) {
 
-        return personService.update(id, request);
+        return personService.update(uid, request);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable("id") Long id) {
-        personService.delete(id);
+    @DeleteMapping("/{uid}")
+    public void deletePerson(@PathVariable("uid") String uid) {
+        personService.delete(uid);
     }
 }

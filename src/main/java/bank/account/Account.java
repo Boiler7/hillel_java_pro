@@ -1,6 +1,7 @@
 package bank.account;
 
 import bank.entity.BaseEntity;
+import bank.person.Person;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
@@ -21,5 +22,5 @@ public class Account extends BaseEntity {
     private String uid;
     private String iban;
     private Integer balance;
-    private Long person_id;
+    private Person person;
 }

@@ -32,22 +32,20 @@ public class PersonService {
         return new PersonDto(person.getUid(), person.getName());
     }
 
-    public PersonDto getPerson(String id) {
-        return personRepository.findByUid(id)
+    public PersonDto getPerson(String uid) {
+        return personRepository.findByUid(uid)
                 .map(this::convertPerson)
                 .orElseThrow();
     }
 
-    public PersonDto update(Long id, PersonDto request) {
-        return personRepository.updatePersonById(request.name(), id)
+    public PersonDto update(String uid, PersonDto request) {
+        return personRepository.updatePersonById(request.name(), uid)
                 .map(this::convertPerson)
                 .orElseThrow();
     }
 
-
-
-    public void delete(Long id) {
-        personRepository.deleteById(id);
+    public void delete(String uid) {
+        personRepository.deleteByUid(uid);
     }
 
 }

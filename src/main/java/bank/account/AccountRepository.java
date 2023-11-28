@@ -11,8 +11,11 @@ import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findByUid(String id);
+    @Modifying
+    @Query("UPDATE Account SET id = ?1 WHERE balance = ?2")
+    Optional<Account> updateAccount(Long id, @Param("request") Integer balanceRequest);
 
     @Modifying
-    @Query("UPDATE Account set id = ?1")
-    Optional<Account> updateAccount(String id);
+    @Query("DELETE Account WHERE id = ?1")
+    void deleteById(String id);
 }

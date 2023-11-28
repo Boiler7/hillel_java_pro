@@ -4,5 +4,4 @@ public record PersonDto (
     String id,
     String name
 ){
-
 }

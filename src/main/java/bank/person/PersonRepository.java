@@ -11,6 +11,9 @@ public interface PersonRepository extends JpaRepository<Person, Long>{
     Optional<Person> findByUid(String id);
 
     @Modifying
-    @Query("UPDATE Person SET name = :name WHERE id = :id")
-    Optional<Person> updatePersonById(@Param("name") String name, @Param("id") Long id);
+    @Query("UPDATE Person SET name = ?1 WHERE uid = ?2")
+    Optional<Person> updatePersonById( String name, String uid);
+
+    @Query("DELETE Person WHERE uid = ?1")
+    void deleteByUid(String uid);
 }

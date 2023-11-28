@@ -2,7 +2,6 @@ package bank.account;
 
 import bank.NumberGenerator;
 import bank.person.Person;
-import bank.person.PersonDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +22,14 @@ public class AccountService {
                 .uid(UUID.randomUUID().toString())
                 .iban("UA" + NumberGenerator.generateIBAN())
                 .balance(0)
-                .person_id(request.person_id())
+                .person(Person.builder()
+                        .uid(request.personUid())
+                        .build())
                 .build()));
     }
 
     private AccountDto convertAccount(Account account) {
-        return new AccountDto(account.getUid(), account.getIban(), account.getBalance(), account.getPerson_id());
+        return new AccountDto(account.getUid(), account.getIban(), account.getBalance(), account.getPerson().getUid());
     }
 
     public List<AccountDto> getAccounts(Pageable pageable) {
@@ -37,11 +38,16 @@ public class AccountService {
                 .toList();
     }
 
-    public void delete(Long id) {
-        accountRepository.deleteById(id);
+    public Optional<AccountDto> getAccount(Long id) {
+        return accountRepository.findById(id).map(this::convertAccount);
     }
 
-    public AccountDto update(String id) {
-        return convertAccount(accountRepository.updateAccount(id).get());
+    public void delete(String uid) {
+        accountRepository.deleteById(uid);
     }
+
+    public AccountDto update(Long id, AccountDto request) {
+        return convertAccount(accountRepository.updateAccount(id, request.balance()).get());
+    }
+
 }
