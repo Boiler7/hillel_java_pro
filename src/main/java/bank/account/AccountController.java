@@ -32,14 +32,14 @@ public class AccountController {
 
     @PutMapping("/accounts/{id}")
     public AccountDto updateAccount(
-            @PathVariable("id") Long id,
+            @PathVariable("id") String uid,
             @RequestBody AccountDto request) {
-        return accountService.update(id, request);
+        return accountService.update(uid, request);
     }
 
     @DeleteMapping("/accounts/{id}")
-    public void deleteAccount(@PathVariable("id") String uid) {
-        accountService.delete(uid);
+    public void deleteAccount(@PathVariable("id") Long id) {
+        accountService.delete(id);
     }
 
 }

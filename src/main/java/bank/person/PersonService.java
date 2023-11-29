@@ -1,5 +1,6 @@
 package bank.person;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -38,10 +39,17 @@ public class PersonService {
                 .orElseThrow();
     }
 
+    private Person getRequiredPerson(String uid) {
+        return personRepository.findByUid(uid)
+                .orElseThrow(() -> new RuntimeException("Person not found"));
+    }
+
+    @Transactional
     public PersonDto update(String uid, PersonDto request) {
-        return personRepository.updatePersonById(request.name(), uid)
-                .map(this::convertPerson)
-                .orElseThrow();
+        var person = getRequiredPerson(uid);
+
+        person.setName(request.name());
+        return convertPerson(personRepository.save(person));
     }
 
     public void delete(String uid) {

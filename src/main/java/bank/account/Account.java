@@ -4,6 +4,7 @@ import bank.entity.BaseEntity;
 import bank.person.Person;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,5 +23,6 @@ public class Account extends BaseEntity {
     private String uid;
     private String iban;
     private Integer balance;
+    @ManyToOne
     private Person person;
 }
