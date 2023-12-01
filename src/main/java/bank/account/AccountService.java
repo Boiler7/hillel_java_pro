@@ -33,9 +33,9 @@ public class AccountService {
                 .person(Person.builder()
                         .id(person.getId())
                         .uid(person.getUid())
-                        .createdAt(Instant.now())
-                        .updatedAt(Instant.now())
                         .build())
+                .createdAt(Instant.now())
+                .updatedAt(Instant.now())
                 .build()));
     }
 
