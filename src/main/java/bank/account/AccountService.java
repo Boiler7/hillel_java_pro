@@ -23,7 +23,7 @@ public class AccountService {
     }
 
     public AccountDto create(AccountDto request) {
-        var person = personRepository.findById(Long.valueOf(request.personId()))
+        var person = personRepository.findByUid(request.personId())
                 .orElseThrow(() -> new RuntimeException("Person not found"));
 
         return convertAccount(accountRepository.save(Account.builder()
@@ -31,7 +31,6 @@ public class AccountService {
                 .iban("UA" + NumberGenerator.generateIBAN())
                 .balance(0)
                 .person(Person.builder()
-                        .id(person.getId())
                         .uid(person.getUid())
                         .build())
                 .createdAt(Instant.now())
@@ -49,17 +48,17 @@ public class AccountService {
                 .toList();
     }
 
-    public Optional<AccountDto> getAccount(String uid) {
-        return accountRepository.findByUid(uid).map(this::convertAccount);
+    public Optional<AccountDto> getAccount(String id) {
+        return accountRepository.findByUid(id).map(this::convertAccount);
     }
 
-    public void delete(String uid) {
-        var account = getRequiredAccount(uid);
+    public void delete(String id) {
+        var account = getRequiredAccount(id);
         accountRepository.deleteByUid(account.getPerson().getUid());
     }
 
-    private Account getRequiredAccount(String uid) {
-        return accountRepository.findByUid(uid)
+    private Account getRequiredAccount(String id) {
+        return accountRepository.findByUid(id)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
     }
 
