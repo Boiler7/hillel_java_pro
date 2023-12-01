@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,7 +31,10 @@ public class AccountService {
                 .iban("UA" + NumberGenerator.generateIBAN())
                 .balance(0)
                 .person(Person.builder()
+                        .id(person.getId())
                         .uid(person.getUid())
+                        .createdAt(Instant.now())
+                        .updatedAt(Instant.now())
                         .build())
                 .build()));
     }
@@ -45,23 +49,23 @@ public class AccountService {
                 .toList();
     }
 
-    public Optional<AccountDto> getAccount(Long id) {
-        return accountRepository.findById(id).map(this::convertAccount);
+    public Optional<AccountDto> getAccount(String uid) {
+        return accountRepository.findByUid(uid).map(this::convertAccount);
     }
 
-    public void delete(Long id) {
-        accountRepository.deleteById(id);
+    public void delete(String uid) {
+        var account = getRequiredAccount(uid);
+        accountRepository.deleteByUid(account.getPerson().getUid());
     }
 
     private Account getRequiredAccount(String uid) {
         return accountRepository.findByUid(uid)
-                .orElseThrow(() -> new RuntimeException("Person not found"));
-
+                .orElseThrow(() -> new RuntimeException("Account not found"));
     }
 
     @Transactional
-    public AccountDto update(String uid, AccountDto request) {
-        var account = getRequiredAccount(uid);
+    public AccountDto update(String id, AccountDto request) {
+        var account = getRequiredAccount(id);
 
         account.setBalance(request.balance());
         return convertAccount(accountRepository.save(account));

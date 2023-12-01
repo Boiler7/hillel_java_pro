@@ -20,9 +20,9 @@ public class AccountController {
         return accountService.getAccounts(pageable);
     }
 
-    @GetMapping("/accounts/{id}")
-    public Optional<AccountDto> account(@PathVariable("id") Long id){
-        return accountService.getAccount(id);
+    @GetMapping("/accounts/{uid}")
+    public Optional<AccountDto> account(@PathVariable("uid") String uid){
+        return accountService.getAccount(uid);
     }
 
     @PostMapping("/accounts")
@@ -30,16 +30,16 @@ public class AccountController {
         return accountService.create(request);
     }
 
-    @PutMapping("/accounts/{id}")
+    @PutMapping("/accounts/{uid}")
     public AccountDto updateAccount(
-            @PathVariable("id") String uid,
+            @PathVariable("uid") String uid,
             @RequestBody AccountDto request) {
         return accountService.update(uid, request);
     }
 
-    @DeleteMapping("/accounts/{id}")
-    public void deleteAccount(@PathVariable("id") Long id) {
-        accountService.delete(id);
+    @DeleteMapping("/accounts/{uid}")
+    public void deleteAccount(@PathVariable("uid") String uid) {
+        accountService.delete(uid);
     }
 
 }
