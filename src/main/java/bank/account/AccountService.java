@@ -1,7 +1,6 @@
 package bank.account;
 
 import bank.NumberGenerator;
-import bank.person.Person;
 import bank.person.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
@@ -30,9 +29,7 @@ public class AccountService {
                 .uid(UUID.randomUUID().toString())
                 .iban("UA" + NumberGenerator.generateIBAN())
                 .balance(0)
-                .person(Person.builder()
-                        .uid(person.getUid())
-                        .build())
+                .person(person)
                 .createdAt(Instant.now())
                 .updatedAt(Instant.now())
                 .build()));
