@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,8 @@ public class PersonService {
         return convertPerson(personRepository.save(Person.builder()
                 .uid(UUID.randomUUID().toString())
                 .name(request.name())
+                .updatedAt(Instant.now())
+                .createdAt(Instant.now())
                 .build()));
     }
 
