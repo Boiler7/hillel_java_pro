@@ -108,7 +108,7 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
 
         var updatedAccount = objectMapper.readValue(updatedBody, AccountDto.class);
         assertThat(updatedAccount.id(), equalTo(initialEntityId));
-//        assertThat(updatedAccount.iban(), equalTo(initialRequest.iban()));
+        assertThat(updatedAccount.iban(), equalTo(initialRequest.iban()));
         assertThat(updatedAccount.balance(), equalTo(updatedBalance));
         assertThat(updatedAccount.personId(), equalTo(initialRequest.personId()));
     }

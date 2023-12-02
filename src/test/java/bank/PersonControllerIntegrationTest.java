@@ -4,8 +4,7 @@ import bank.person.Person;
 import bank.person.PersonDto;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 
 import java.time.Instant;
 import java.util.UUID;
@@ -76,7 +75,6 @@ public class PersonControllerIntegrationTest extends WebIntegrationTest {
         var updatedPerson = objectMapper.readValue(updatedBody, PersonDto.class);
 
         assertThat(updatedPerson.name(), equalTo(updateRequest.name()));
-
     }
 
     @Test
