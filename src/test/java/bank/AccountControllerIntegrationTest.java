@@ -38,8 +38,7 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
 
         mockMvc.perform(get("/api/accounts/{id}", account.getUid()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.iban", equalTo(account.getIban())))
-        ;
+                .andExpect(jsonPath("$.iban", equalTo(account.getIban())));
     }
 
     @Test
@@ -51,16 +50,16 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
                 .updatedAt(Instant.now())
                 .build());
 
-        var request = new AccountDto(null, NumberGenerator.generateIBAN(), 0, person.getUid());
+        var request = new AccountDto(null, 0, person.getUid());
 
         var body = mockMvc.perform(post("/api/accounts")
-                        .content( objectMapper.writeValueAsString(request))
+                        .content(objectMapper.writeValueAsString(request))
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(notNullValue())))
                 .andExpect(jsonPath("$.iban", equalTo(request.iban())))
                 .andExpect(jsonPath("$.balance", equalTo(request.balance())))
-                .andExpect(jsonPath("$.personId", equalTo(request.personId())))
+                .andExpect(jsonPath("$.person_id").value(request.personId()))
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
@@ -83,22 +82,22 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
                 .updatedAt(Instant.now())
                 .build());
 
-        var initialRequest = new AccountDto(null, NumberGenerator.generateIBAN(), 0, person.getUid());
+        var request = new AccountDto(null, NumberGenerator.generateIBAN(), 0, person.getUid());
 
-        var initialBody = mockMvc.perform(post("/api/accounts")
-                        .content(objectMapper.writeValueAsString(initialRequest))
+        var body = mockMvc.perform(post("/api/accounts")
+                        .content(objectMapper.writeValueAsString(request))
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
 
-        var initialEntityId = objectMapper.readValue(initialBody, AccountDto.class).id();
+        var entityId = objectMapper.readValue(body, AccountDto.class).id();
 
         var updatedBalance = 100;
-        var updateRequest = new AccountDto(initialEntityId, initialRequest.iban(), updatedBalance, initialRequest.personId());
+        var updateRequest = new AccountDto(entityId, request.iban(), updatedBalance, request.personId());
 
-        var updatedBody = mockMvc.perform(put("/api/accounts/{id}", initialEntityId)
+        var updatedBody = mockMvc.perform(put("/api/accounts/{id}", entityId)
                         .content(objectMapper.writeValueAsString(updateRequest))
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -107,10 +106,10 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
                 .getContentAsString();
 
         var updatedAccount = objectMapper.readValue(updatedBody, AccountDto.class);
-        assertThat(updatedAccount.id(), equalTo(initialEntityId));
-        assertThat(updatedAccount.iban(), equalTo(initialRequest.iban()));
+        assertThat(updatedAccount.id(), equalTo(entityId));
+        assertThat(updatedAccount.iban(), equalTo(request.iban()));
         assertThat(updatedAccount.balance(), equalTo(updatedBalance));
-        assertThat(updatedAccount.personId(), equalTo(initialRequest.personId()));
+        assertThat(updatedAccount.personId(), equalTo(request.personId()));
     }
 
     @Test

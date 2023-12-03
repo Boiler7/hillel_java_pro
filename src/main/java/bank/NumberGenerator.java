@@ -12,7 +12,7 @@ public class NumberGenerator {
             result.append(randomNumber);
         }
 
-        return result.toString();
+        return "UA" + result;
     }
 
 }
