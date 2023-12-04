@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<body>
+<div th:switch="${hero}">
+    <h2 th:case="null">No hero yet!</h2>
+    <div th:case="*">
+        <h2 style="text-align: center">Heroes:</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Eye Color</th>
+                <th>Race</th>
+                <th>Hair Color</th>
+                <th>Height</th>
+                <th>Publisher</th>
+                <th>Skin</th>
+                <th>Alignment</th>
+                <th>Weight</th>
+                <th>Gender</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="hero : ${hero}">
+                <td th:text="${hero.name}"></td>
+                <td th:text="${hero.movies}"></td>
+                <td th:text="${hero.eyeColor}"></td>
+                <td th:text="${hero.race}"></td>
+                <td th:text="${hero.hairColor}"></td>
+                <td th:text="${hero.height}"></td>
+                <td th:text="${hero.publisher}"></td>
+                <td th:text="${hero.skinColor}"></td>
+                <td th:text="${hero.alignment}"></td>
+                <td th:text="${hero.weight}"></td>
+                <td th:text="${hero.gender}"></td>
+
+
+                <td><a th:href="@{/edit/{id}(id=${hero.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/{id}(id=${hero.id})}">Delete</a></td>
+                <br>
+
+                <a th:href="@{/}">Back</a>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
