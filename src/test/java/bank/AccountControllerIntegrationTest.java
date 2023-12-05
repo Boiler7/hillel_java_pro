@@ -6,7 +6,6 @@ import bank.person.Person;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -122,7 +121,5 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
         mockMvc.perform(delete("/api/accounts/{id}", account.getUid())
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
-
-        assertThat(accountRepository.findByUid(account.getPerson().getUid(), ));
     }
 }
