@@ -18,13 +18,13 @@ public class SpringMvcController {
     public String heroes(Model model) {
 //           model.addAttribute("hero", "movie");
         model.addAttribute("heroes", heroService.getHeroes());
-        return "index";
+        return "heroes.mvc/index";
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("hero", HeroDto.builder().build());
-        return "create";
+        return "heroes.mvc/create";
     }
 
     @PostMapping("/add")
@@ -38,7 +38,7 @@ public class SpringMvcController {
         var hero = heroService.getHeroById(id);
 
         model.addAttribute("hero", hero);
-        return "edit";
+        return "heroes.mvc/edit";
     }
 
     @PostMapping("/update/{id}")

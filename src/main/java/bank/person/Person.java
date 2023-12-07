@@ -20,5 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Person extends BaseEntity {
     private String uid;
     private String name;
+
+
 }
 

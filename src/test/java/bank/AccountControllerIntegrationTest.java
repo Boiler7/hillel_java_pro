@@ -6,7 +6,6 @@ import bank.person.Person;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -23,8 +22,6 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
                 .uid(UUID.randomUUID().toString())
                 .name("Test")
                 .uid(UUID.randomUUID().toString())
-                .updatedAt(Instant.now())
-                .createdAt(Instant.now())
                 .build());
 
         var account = accountRepository.save(Account.builder()
@@ -32,8 +29,6 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
                 .balance(159)
                 .iban(NumberGenerator.generateIBAN())
                         .person(person)
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
                 .build());
 
         mockMvc.perform(get("/api/accounts/{id}", account.getUid()))
@@ -46,8 +41,6 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
         var person = personRepository.save(Person.builder()
                 .uid(UUID.randomUUID().toString())
                 .name("Test")
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
                 .build());
 
         var request = new AccountDto(null, 0, person.getUid());
@@ -78,8 +71,6 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
         var person = personRepository.save(Person.builder()
                 .uid(UUID.randomUUID().toString())
                 .name("Test")
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
                 .build());
 
         var request = new AccountDto(null, NumberGenerator.generateIBAN(), 0, person.getUid());
@@ -118,8 +109,6 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
         var person = personRepository.save(Person.builder()
                 .uid(UUID.randomUUID().toString())
                 .name("Test")
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
                 .build());
 
         var account = accountRepository.save(Account.builder()
@@ -127,8 +116,6 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
                 .balance(159)
                 .iban(NumberGenerator.generateIBAN())
                 .person(person)
-                .createdAt(Instant.now())
-                .updatedAt(Instant.now())
                 .build());
 
         mockMvc.perform(delete("/api/accounts/{id}", account.getUid())
