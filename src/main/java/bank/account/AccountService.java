@@ -1,6 +1,5 @@
 package bank.account;
 
-import bank.NumberGenerator;
 import bank.person.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +26,7 @@ public class AccountService {
 
         return convertAccount(accountRepository.save(Account.builder()
                 .uid(UUID.randomUUID().toString())
-                .iban("UA" + NumberGenerator.generateIBAN())
+                .iban(request.iban())
                 .balance(0)
                 .person(person)
                 .createdAt(Instant.now())
