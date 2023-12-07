@@ -22,7 +22,6 @@ public class PersonControllerIntegrationTest extends WebIntegrationTest {
         var person = personRepository.save(Person.builder()
                 .uid(UUID.randomUUID().toString())
                 .name("Test")
-
                 .build());
 
         mockMvc.perform(get("/api/persons/{id}", person.getUid()))
