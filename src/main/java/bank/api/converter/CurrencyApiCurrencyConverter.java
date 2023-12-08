@@ -35,7 +35,6 @@ public class CurrencyApiCurrencyConverter implements CurrencyConverter {
                         .block())
                 .getData();
 
-        System.out.println(converterResponse);
         var data = converterResponse.entrySet().stream().findAny()
                 .orElseThrow(() -> new RuntimeException("Failed to retrieve conversion data"));
 
