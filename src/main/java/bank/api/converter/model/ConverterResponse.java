@@ -1,7 +1,6 @@
 package bank.api.converter.model;
 
 import java.util.Map;
-import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
