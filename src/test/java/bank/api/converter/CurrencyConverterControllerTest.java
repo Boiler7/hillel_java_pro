@@ -11,7 +11,7 @@ class CurrencyConverterControllerTest extends WebIntegrationTest {
 
     @Test
     void shouldConvert() throws Exception {
-        var body = mockMvc.perform(get("/api/converter")
+        mockMvc.perform(get("/api/converter")
                         .param("from", "USD")
                         .param("to", "UAH")
                         .param("amount", "100")
