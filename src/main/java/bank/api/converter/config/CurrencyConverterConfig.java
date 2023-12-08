@@ -20,7 +20,7 @@ public class CurrencyConverterConfig {
     }
 
     @Configuration
-    @ConditionalOnProperty(name = "currency.converter.provider", havingValue = "dummy", matchIfMissing = true)
+    @ConditionalOnProperty(name = "currency.converter.provider", havingValue = "dummy")
     public static class DummyConverterConfiguration {
         @Bean
         public CurrencyConverter dummyCurrencyConverter() {

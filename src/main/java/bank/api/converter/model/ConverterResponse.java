@@ -1,5 +1,6 @@
 package bank.api.converter.model;
 
+import java.util.Map;
 import java.util.Optional;
 
 import lombok.AllArgsConstructor;
@@ -12,5 +13,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConverterResponse {
-    private Optional<ConverterResponseData> data;
+    private Map<String, ConverterResponseData> data;
 }
