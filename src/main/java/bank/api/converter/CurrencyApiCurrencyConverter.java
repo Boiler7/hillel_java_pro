@@ -2,7 +2,6 @@ package bank.api.converter;
 
 import bank.api.converter.model.ConverterResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.Currency;
 import java.util.Objects;
 
@@ -37,10 +36,12 @@ public class CurrencyApiCurrencyConverter implements CurrencyConverter {
                         .block())
                         .getData();
 
-        var data = response.entrySet().stream().findAny()
+        var data = response.entrySet().stream()
+                .filter(a -> a.getKey().equals(to.getCurrencyCode()))
+                .findFirst()
                 .orElseThrow(() -> new RuntimeException("Failed to retrieve conversion data"));
 
-
+        System.out.println(response);
         return amount / data.getValue().getValue();
     }
 }

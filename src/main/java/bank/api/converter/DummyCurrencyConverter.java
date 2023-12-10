@@ -6,6 +6,6 @@ public class DummyCurrencyConverter implements CurrencyConverter{
 
     @Override
     public double convert(Currency from, Currency to, double amount) {
-        return 39.10;
+        return 3914.25;
     }
 }
