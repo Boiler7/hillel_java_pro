@@ -19,7 +19,6 @@ public class DummyControllerIntegrationTest extends WebIntegrationTest {
                         .withHeader("Content-Type", "application/json")));
 
         var amount = mockMvc.perform(get("/api/converter")
-                        .param("apikey", String.valueOf(WireMock.equalTo(properties.getApiKey())))
                         .param("from", "UAH")
                         .param("to", "USD")
                         .param("amount", "100")
