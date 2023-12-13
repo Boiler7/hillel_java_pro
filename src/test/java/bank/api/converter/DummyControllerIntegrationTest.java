@@ -1,15 +1,10 @@
 package bank.api.converter;
 
 import bank.WebIntegrationTest;
-import bank.api.converter.model.ConverterResponse;
-import bank.api.converter.model.ConverterResponseData;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import java.util.Map;
-
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,21 +13,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class DummyControllerIntegrationTest extends WebIntegrationTest {
     @Test
     public void shouldConvert() throws Exception {
-        var response = ConverterResponse.builder()
-                .data(Map.of("UAH", ConverterResponseData.builder()
-                        .code("UAH")
-                        .value(39.1425)
-                        .build()))
-                .build();
-
-        wireMockServer.stubFor(WireMock.get(urlEqualTo("/api/converter"))
+        stubFor(WireMock.get(urlEqualTo("http://localhost:8080/api/converter"))
                 .willReturn(aResponse()
-                        .withHeader("Content-Type", "application/json")
-                        .withBody(objectMapper.writeValueAsString(response))));
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")));
 
         var amount = mockMvc.perform(get("/api/converter")
-                        .param("from", "USD")
-                        .param("to", "UAH")
+                        .param("apikey", String.valueOf(WireMock.equalTo(properties.getApiKey())))
+                        .param("from", "UAH")
+                        .param("to", "USD")
                         .param("amount", "100")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -40,8 +29,8 @@ public class DummyControllerIntegrationTest extends WebIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        double score = Double.parseDouble(amount);
+        var result = Double.parseDouble(amount);
 
-        assertThat(score, equalTo(3914.25));
+        assertThat(result, equalTo(3914.25));
     }
 }

@@ -1,6 +1,7 @@
 package bank;
 
 import bank.account.AccountRepository;
+import bank.api.converter.CurrencyProperties;
 import bank.person.PersonRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -26,11 +27,8 @@ public abstract class WebIntegrationTest {
     protected ObjectMapper objectMapper;
     @Autowired
     protected WireMockServer wireMockServer;
-
-//    @AfterAll
-//    void tearDown() {
-//        wireMockServer.resetAll();
-//    }
+    @Autowired
+    protected CurrencyProperties properties;
 
     @DynamicPropertySource
     public static void registerDynamicProperties(DynamicPropertyRegistry registry) {
