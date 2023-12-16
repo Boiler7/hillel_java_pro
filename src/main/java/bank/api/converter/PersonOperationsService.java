@@ -14,11 +14,11 @@ import java.util.concurrent.ExecutionException;
 public class PersonOperationsService {
     private final CurrencyConverter currencyConverter;
     public double convert(Currency from, Currency to, double amount) throws ExecutionException, InterruptedException {
-        CompletableFuture<Double> collable
+        CompletableFuture<Double> callable
                 =CompletableFuture.supplyAsync(() -> currencyConverter.convert(from, to, amount));
 
-        log.info("Convert: return={}", collable.get());
+        log.info("Convert: return={}", callable.get());
 
-        return collable.get();
+        return callable.get();
     }
 }
