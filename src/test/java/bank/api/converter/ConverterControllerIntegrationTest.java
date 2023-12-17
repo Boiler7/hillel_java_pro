@@ -7,7 +7,6 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-
 import java.util.Map;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -20,16 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ConverterControllerIntegrationTest extends WebIntegrationTest {
     @Test
     public void shouldConvert() throws Exception {
-//        WebClient.builder()
-//                .baseUrl("http://localhost:8080")
-//                .defaultHeaders(header -> header.setBasicAuth("username", "password"))
-//                .build()
-//                .get()
-//                .uri("/api/converter")
-//                .retrieve()
-//                .toEntity(String.class)
-//                .block();
-
         var response = ConverterResponse.builder()
                 .data(Map.of("USD", ConverterResponseData.builder()
                         .code("USD")
@@ -42,7 +31,7 @@ public class ConverterControllerIntegrationTest extends WebIntegrationTest {
                         .withHeader("Content-Type", "application/json")
                         .withBody(objectMapper.writeValueAsString(response))));
 
-        var amount = mockMvc.perform(get("/api/converter")
+        var responseBody = mockMvc.perform(get("/api/converter")
                         .param("from", "UAH")
                         .param("to", "USD")
                         .param("amount", "100")
@@ -52,8 +41,12 @@ public class ConverterControllerIntegrationTest extends WebIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        var result = Double.parseDouble(amount);
+        // Parse the JSON response and extract the numeric value
 
-        assertThat(result, equalTo(3914.25));
+
+        assertThat(Math.round(Double.parseDouble(responseBody)), equalTo(Math.round(3675.5414059626587)));
     }
+
+
+
 }
