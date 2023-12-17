@@ -41,7 +41,6 @@ public class ConverterControllerIntegrationTest extends WebIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        // Parse the JSON response and extract the numeric value
 
 
         assertThat(Math.round(Double.parseDouble(responseBody)), equalTo(Math.round(3675.5414059626587)));
