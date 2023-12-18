@@ -15,7 +15,8 @@ public record CardDto(
     String pin,
     String cvv){
     public CardDto(String id, String personId, String accountId){
-        this(id, personId, accountId, CardStatus.WAITING, NumberGenerator.getShortExpirationDate(NumberGenerator.generateExpirationDate()),
-                NumberGenerator.generatePAN(),NumberGenerator.generatePIN(), NumberGenerator.generateCVV());
+        this(id, personId, accountId, CardStatus.WAITING,
+                NumberGenerator.getShortExpirationDate(NumberGenerator.generateExpirationDate()),
+                NumberGenerator.generatePAN(), NumberGenerator.generatePIN(), NumberGenerator.generateCVV());
     }
 }

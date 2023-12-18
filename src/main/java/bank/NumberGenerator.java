@@ -9,38 +9,46 @@ import java.util.Random;
 
 public class NumberGenerator {
     private static final Random random = new Random();
-    private static final StringBuilder result = new StringBuilder();
+    private static final StringBuilder stringBuilder = new StringBuilder();
     public static String generateIBAN(){
         for (int i = 0; i < 25; i++) {
             int randomNumber = random.nextInt(10);
-            result.append(randomNumber);
+            stringBuilder.append(randomNumber);
         }
-
+        var result = stringBuilder.toString();
+                stringBuilder.setLength(0);
         return "UA" + result;
     }
 
     public static String generatePAN(){
         for (int i = 0; i < 16; i++) {
             int randomNumber = random.nextInt(10);
-            result.append(randomNumber);
+            stringBuilder.append(randomNumber);
         }
-        return result.toString();
+        var result = stringBuilder.toString();
+        stringBuilder.setLength(0);
+
+        return result;
     }
 
     public static String generatePIN(){
         for (int i = 0; i < 4; i++) {
             int randomNumber = random.nextInt(10);
-            result.append(randomNumber);
+            stringBuilder.append(randomNumber);
         }
-        return result.toString();
+        var result = stringBuilder.toString();
+        stringBuilder.setLength(0);
+        return result;
     }
 
     public static String generateCVV(){
         for (int i = 0; i < 3; i++) {
             int randomNumber = random.nextInt(10);
-            result.append(randomNumber);
+            stringBuilder.append(randomNumber);
         }
-        return result.toString();
+        var result = stringBuilder.toString();
+        stringBuilder.setLength(0);
+        return result;
     }
 
     public static Date generateExpirationDate(){

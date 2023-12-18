@@ -8,16 +8,23 @@ import java.text.SimpleDateFormat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NumberGeneratorTest {
-
     @Test
-    void shouldGenerateExpirationDate() {
-//        LocalDate date = LocalDate.of(2023, 12, 17);
-//        var result = NumberGenerator.generateExpirationDate(date);
-//
-//        assertNotNull(result);
-//        assertTrue(result.after(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant())));
+    void shouldGeneratePAN() {
+        var result = NumberGenerator.generatePAN();
+                assertEquals(16, result.length());
     }
 
+    @Test
+    void shouldGeneratePIN() {
+        var result = NumberGenerator.generatePIN();
+                assertEquals(4, result.length());
+    }
+
+    @Test
+    void shouldGenerateCVV() {
+        var result = NumberGenerator.generateCVV();
+        assertEquals(3, result.length());
+    }
     @Test
     void shouldGetShortExpirationDate() throws ParseException {
         var date = new SimpleDateFormat("dd/MM/yyyy").parse("17/12/2023");
@@ -26,4 +33,6 @@ class NumberGeneratorTest {
         assertNotNull(result);
         assertEquals("12/23", result);
     }
+
+
 }

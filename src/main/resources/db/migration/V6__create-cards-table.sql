@@ -7,7 +7,7 @@ create table if not exists cards
     expiration_date  DATE,
     pin              varchar,
     cvv              varchar,
-    status           varchar,
+    CARD_STATUS           varchar,
     person_id        INTEGER,
     created_at       timestamp not null,
     updated_at       timestamp not null,

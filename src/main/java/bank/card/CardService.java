@@ -4,7 +4,6 @@ import bank.NumberGenerator;
 import bank.account.AccountRepository;
 import bank.person.PersonRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.UUID;
 
 @Service
@@ -22,6 +21,7 @@ public class CardService {
     public CardDto openCard(String personId, String accountId){
         var person = personRepository.findByUid(personId)
                 .orElseThrow(() -> new RuntimeException("No person found"));
+
         var account = accountRepository.findByUid(accountId)
                 .orElseThrow(() -> new RuntimeException("No account found"));
 
@@ -35,7 +35,6 @@ public class CardService {
                 .account(account)
                 .person(person)
                 .build());
-
 
         return new CardDto(card.uid, card.getPerson().getUid(), card.getAccount().getUid());
     }
