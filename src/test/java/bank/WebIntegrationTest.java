@@ -1,6 +1,7 @@
 package bank;
 
 import bank.account.AccountRepository;
+import bank.card.CardRepository;
 import bank.person.PersonRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public abstract class WebIntegrationTest {
     protected PersonRepository personRepository;
     @Autowired
     protected AccountRepository accountRepository;
+    @Autowired
+    protected CardRepository cardRepository;
     @Autowired
     protected ObjectMapper objectMapper;
 }
