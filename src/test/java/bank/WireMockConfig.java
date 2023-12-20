@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class WireMockConfig {
-    public final static WireMockServer wireMockServer = new WireMockServer(8080);
+    public final static WireMockServer wireMockServer = new WireMockServer(80);
 
     @Bean
     public WireMockServer wireMockServer() {

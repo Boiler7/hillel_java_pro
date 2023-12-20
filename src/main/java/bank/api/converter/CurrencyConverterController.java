@@ -16,8 +16,8 @@ public class CurrencyConverterController {
 
     @GetMapping("/converter")
     public double converter(
-            @RequestParam Currency from,
-            @RequestParam Currency to,
+            @RequestParam String from,
+            @RequestParam String to,
             @RequestParam double amount){
         return currencyConverter.convert(from, to, amount);
     }

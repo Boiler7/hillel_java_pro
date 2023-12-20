@@ -7,9 +7,11 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+
 import java.util.Map;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,22 +21,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ConverterControllerIntegrationTest extends WebIntegrationTest {
     @Test
     public void shouldConvert() throws Exception {
+        log.info("BaseUrl" + wireMockServer.baseUrl());
         var response = ConverterResponse.builder()
-                .data(Map.of("USD", ConverterResponseData.builder()
-                        .code("USD")
+                .data(Map.of("UAH", ConverterResponseData.builder()
+                        .code("UAH")
                         .value(39.1425)
                         .build()))
                 .build();
 
-        wireMockServer.stubFor(WireMock.get(urlEqualTo("/api/converter"))
+        wireMockServer.stubFor(WireMock.get(urlPathEqualTo("/v3/latest"))
+                .withQueryParam("apikey", WireMock.equalTo(properties.getApiKey()))
+                .withQueryParam("base_currency", WireMock.equalTo("USD"))
+                .withQueryParam("currencies", WireMock.equalTo("UAH"))
                 .willReturn(aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withBody(objectMapper.writeValueAsString(response))));
 
+        log.info(wireMockServer.baseUrl()+wireMockServer.isRunning() );
         var responseBody = mockMvc.perform(get("/api/converter")
-                        .param("from", "UAH")
-                        .param("to", "USD")
-                        .param("amount", "100")
+                        .param("from", "USD")
+                        .param("to", "UAH")
+                        .param("amount", "100.0")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn()
@@ -42,10 +49,7 @@ public class ConverterControllerIntegrationTest extends WebIntegrationTest {
                 .getContentAsString();
 
 
-
-        assertThat(Math.round(Double.parseDouble(responseBody)), equalTo(Math.round(3675.5414059626587)));
+        var result = Double.parseDouble(responseBody);
+        assertThat(result, equalTo(3914.25));
     }
-
-
-
 }

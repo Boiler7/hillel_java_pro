@@ -11,33 +11,37 @@ public class CurrencyApiCurrencyConverter implements CurrencyConverter {
 
     public CurrencyApiCurrencyConverter(CurrencyProperties props) {
         this.props = props;
+        this.webClient = createWebClient(props.getUrl(), "Bearer " + props.getApiKey());
     }
 
-    private WebClient getWebClient() {
-        if (webClient == null) {
-            webClient = WebClient.builder()
-                    .baseUrl(props.getUrl())
-                    .defaultHeader("Authorization", "Bearer " +props.getApiKey())
-                    .build();
-        }
-        return webClient;
+    public CurrencyApiCurrencyConverter(CurrencyProperties props, WebClient webClient) {
+        this.props = props;
+        this.webClient = webClient;
     }
+
+    private WebClient createWebClient(String baseUrl, String authorizationHeader) {
+        return WebClient.builder()
+                .baseUrl(baseUrl)
+                .defaultHeader("Authorization", authorizationHeader)
+                .build();
+    }
+
 
     @Override
-    public double convert(Currency from, Currency to, double amount) {
-        var response = Objects.requireNonNull(getWebClient().get()
+    public double convert(String from, String to, double amount) {
+        var response = Objects.requireNonNull(webClient.get()
                         .uri(uri -> uri.path("/v3/latest")
                                 .queryParam("apikey", props.getApiKey())
-                                .queryParam("base_currency", from.getCurrencyCode())
-                                .queryParam("currencies", to.getCurrencyCode())
+                                .queryParam("base_currency", from)
+                                .queryParam("currencies", to)
                                 .build())
                         .retrieve()
                         .bodyToMono(ConverterResponse.class)
                         .block())
-                        .getData();
+                .getData();
 
         var data = response.entrySet().stream()
-                .filter(a -> a.getKey().equals(to.getCurrencyCode()))
+                .filter(a -> a.getKey().equals(to))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Failed to retrieve conversion data"));
 

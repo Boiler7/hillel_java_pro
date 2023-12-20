@@ -7,6 +7,7 @@ import bank.api.converter.DummyCurrencyConverter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class CurrencyConverterConfig {
@@ -15,7 +16,7 @@ public class CurrencyConverterConfig {
     public static class ConverterConfiguration {
         @Bean
         public CurrencyApiCurrencyConverter creditScoreService(CurrencyProperties properties) {
-            return new CurrencyApiCurrencyConverter(properties);
+            return new CurrencyApiCurrencyConverter(properties, WebClient.builder().build());
         }
     }
 
