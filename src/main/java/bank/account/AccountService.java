@@ -34,7 +34,7 @@ public class AccountService {
                 .build()));
     }
 
-    private AccountDto convertAccount(Account account) {
+    public AccountDto convertAccount(Account account) {
         return new AccountDto(account.getUid(), account.getIban(), account.getBalance(), account.getPerson().getUid());
     }
 

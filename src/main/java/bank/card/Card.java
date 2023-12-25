@@ -23,13 +23,13 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public class Card extends BaseEntity {
     String uid;
-    private String pan;
     @ManyToOne
     @JoinColumn(name="person_id")
     private Person person;
     @ManyToOne
     @JoinColumn(name="account_id")
     private Account account;
+    private String pan;
     private Date expirationDate;
     private String pin;
     private String cvv;
