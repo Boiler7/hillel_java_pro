@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -27,18 +28,20 @@ class TransactionServiceTest {
     private AccountService accountService;
     @Mock
     private CardRepository cardRepository;
+    @Mock
+    private TransactionRepository transactionRepository;
     @InjectMocks
     private TransactionService transactionService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        transactionService = new TransactionService(accountService, cardRepository);
+        transactionService = new TransactionService(accountService, cardRepository, transactionRepository);
     }
 
     @Test
     void shouldMakeTransaction() {
-        TransactionDto transactionDto = new TransactionDto("1234567890", "0987654321", 100);
+        TransactionDto transactionDto = new TransactionDto("1234567890","0987654321", 100);
 
         Card cardFrom = new Card("cardId", new Person(), new Account(), "pan", NumberGenerator.generateExpirationDate(),
                 "0000", "000", CardStatus.ACTIVE);

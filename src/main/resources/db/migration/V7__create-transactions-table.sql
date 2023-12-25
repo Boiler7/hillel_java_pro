@@ -3,7 +3,7 @@ create table if not exists transactions
     id               serial constraint transaction_pk primary key,
     uid              varchar,
     from_card_id     varchar,
-    from_account_id  INTEGER,
+    from_account_id  varchar,
     to_card_id       varchar,
     to_account_id    varchar,
     amount           INTEGER,
