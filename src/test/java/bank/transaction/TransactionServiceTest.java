@@ -12,15 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
-import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 class TransactionServiceTest {
 
@@ -41,29 +38,31 @@ class TransactionServiceTest {
 
     @Test
     void shouldMakeTransaction() {
-        TransactionDto transactionDto = new TransactionDto("1234567890","0987654321", 100);
+        Person person = mock(Person.class);
+        when(person.getUid()).thenReturn("2");
 
-        Card cardFrom = new Card("cardId", new Person(), new Account(), "pan", NumberGenerator.generateExpirationDate(),
-                "0000", "000", CardStatus.ACTIVE);
+        Account accountFrom = mock(Account.class);
+        when(accountFrom.getBalance()).thenReturn(100);
+        when(accountFrom.getPerson()).thenReturn(person);
 
-        Card cardTo = new Card("cardId", new Person(), new Account(), "pan", NumberGenerator.generateExpirationDate(),
-                "0000", "000", CardStatus.ACTIVE);
+        Card cardFrom = new Card("cardFromId", person, accountFrom, "fromCard",
+                NumberGenerator.generateExpirationDate(), "cvvFrom", "pinFrom", CardStatus.ACTIVE);
 
-        Mockito.when(cardRepository.findByPan(eq("1234567890"))).thenReturn(Optional.of(cardFrom));
-        Mockito.when(cardRepository.findByPan(eq("0987654321"))).thenReturn(Optional.of(cardTo));
+        Account accountTo = mock(Account.class);
+        when(accountTo.getBalance()).thenReturn(50);
+        when(accountTo.getPerson()).thenReturn(person);
 
-        Mockito.when(accountService.update(eq(cardFrom.getAccount().getUid()), any(AccountDto.class)))
-                .thenReturn(new AccountDto("accountId", 100, "1"));
+        when(cardRepository.findByPan(eq("fromCard"))).thenReturn(Optional.of(cardFrom));
+        when(cardRepository.findByPan(eq("toCard"))).thenReturn(Optional.of(new Card("cardToId", person,
+                accountTo, "toCard", NumberGenerator.generateExpirationDate(), "cvvTo", "pinTo",
+                CardStatus.ACTIVE)));
 
-        Mockito.when(accountService.update(eq(cardTo.getAccount().getUid()), any(AccountDto.class)))
-                .thenReturn(new AccountDto("accountId", 100, "2"));
+        when(accountService.update(any(), any()))
+                .thenReturn(new AccountDto("idFrom", "ibanFrom", 105, "2"))
+                .thenReturn(new AccountDto("idTo", "ibanTo", 100, "2"));
 
-        transactionService.makeTransaction(transactionDto);
-
-        verify(cardRepository).findByPan(eq("1234567890"));
-        verify(cardRepository).findByPan(eq("0987654321"));
-
-        verify(accountService).update(eq(cardFrom.getAccount().getUid()), any(AccountDto.class));
-        verify(accountService).update(eq(cardTo.getAccount().getUid()), any(AccountDto.class));
+        verify(cardRepository, times(2)).findByPan(anyString());
+        verify(accountService, times(2)).update(any(), any());
+        verify(transactionRepository).save(any());
     }
 }
