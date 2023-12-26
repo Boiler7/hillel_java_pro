@@ -53,12 +53,11 @@ class TransactionServiceTest {
         when(accountTo.getPerson()).thenReturn(person);
 
         when(cardRepository.findByPan(eq("fromCard"))).thenReturn(Optional.of(cardFrom));
-        when(cardRepository.findByPan(eq("toCard"))).thenReturn(Optional.of(new Card("cardToId", person,
-                accountTo, "toCard", NumberGenerator.generateExpirationDate(), "cvvTo", "pinTo",
-                CardStatus.ACTIVE)));
+        when(cardRepository.findByPan(eq("toCard"))).thenReturn(Optional.of(new Card("cardToId", person, accountTo, "toCard",
+                NumberGenerator.generateExpirationDate(), "cvvTo", "pinTo", CardStatus.ACTIVE)));
 
         when(accountService.update(any(), any()))
-                .thenReturn(new AccountDto("idFrom", "ibanFrom", 105, "2"))
+                .thenReturn(new AccountDto("idFrom", "ibanFrom", 50, "2"))
                 .thenReturn(new AccountDto("idTo", "ibanTo", 100, "2"));
 
         verify(cardRepository, times(2)).findByPan(anyString());
