@@ -74,7 +74,7 @@ public class FileLogger extends AbstractLogger {
     }
 
     private Path initCurrentFile(int index) {
-        var fileName = String.format("Log-%s-%s.log", LocalDate.now(), index);
+        var fileName = String.format("Log_%s.log", LocalDate.now());
         return Paths.get(config.path(), fileName);
     }
 }
