@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 public class TransactionController {
     private final TransactionService transactionService;
     @PostMapping("/transactions")
-    public void transaction(
+    public TransactionStatus transaction(
             @RequestBody TransactionDto request){
-        transactionService.makeTransaction(request);
+        return transactionService.makeTransaction(request);
     }
 }

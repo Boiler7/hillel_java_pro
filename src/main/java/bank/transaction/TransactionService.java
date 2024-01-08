@@ -17,7 +17,7 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
 
     @Transactional
-    public void makeTransaction(TransactionDto transactionRequest) {
+    public TransactionStatus makeTransaction(TransactionDto transactionRequest) {
         var cardFrom = cardRepository.findByPan(transactionRequest.fromCard()).orElseThrow(()
                 -> new RuntimeException("Sender's card is not found"));
         var cardTo = cardRepository.findByPan(transactionRequest.toCard()).orElseThrow(()
@@ -27,15 +27,18 @@ public class TransactionService {
             var accountFromUpdate = cardFrom.getAccount();
             var accountToUpdate = cardTo.getAccount();
 
+            accountToUpdate.setBalance(accountFromUpdate.getBalance() - transactionRequest.amount());
+            accountFromUpdate.setBalance(accountToUpdate.getBalance() + transactionRequest.amount());
+
             accountService.update(accountFromUpdate.getUid(), new AccountDto(
                     accountFromUpdate.getUid(),
                     accountFromUpdate.getIban(),
-                    accountFromUpdate.getBalance() - transactionRequest.amount(),
+                    accountFromUpdate.getBalance(),
                     accountFromUpdate.getPerson().getUid()));
 
             accountService.update(accountToUpdate.getUid(), new AccountDto(
                     accountToUpdate.getIban(),
-                    accountToUpdate.getBalance() + transactionRequest.amount(),
+                    accountToUpdate.getBalance(),
                     accountToUpdate.getPerson().getUid()));
 
             transactionRepository.save(Transaction.builder()
@@ -46,6 +49,7 @@ public class TransactionService {
                     .toAccount(accountToUpdate)
                     .amount(transactionRequest.amount())
                     .build());
+            return TransactionStatus.SUCCESS;
         } else {
             throw new RuntimeException("No sufficient funds");
         }

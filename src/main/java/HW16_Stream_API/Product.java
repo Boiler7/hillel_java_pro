@@ -1,13 +1,18 @@
 package HW16_Stream_API;
 
+import lombok.Getter;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Product {
+    @Getter
     private String category;
+    @Getter
     private double price;
     private boolean isWithDiscount;
+    @Getter
     private LocalDate date;
 
     public Product(){}
@@ -73,17 +78,5 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(category, price, isWithDiscount);
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public String getCategory() {
-        return category;
     }
 }
