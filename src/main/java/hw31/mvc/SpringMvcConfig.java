@@ -1,8 +1,8 @@
 package hw31.mvc;
 
-import HW24_JDBC.HeroDaoImplementation;
-import HW25_Patterns_Integration_Testing.HeroMovieService;
-import HW25_Patterns_Integration_Testing.HeroService;
+import hw24.jdbc.HeroDaoImplementation;
+import hw25.patterns.integration.testing.HeroMovieService;
+import hw25.patterns.integration.testing.HeroService;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
