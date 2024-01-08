@@ -1,8 +1,8 @@
-package bank.card;
+package bank.transaction;
 
 import bank.account.Account;
+import bank.card.Card;
 import bank.entity.BaseEntity;
-import bank.person.Person;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,29 +11,23 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
-
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "cards")
+@Table(name = "transactions")
 @EntityListeners(AuditingEntityListener.class)
-public class Card extends BaseEntity {
-    String uid;
+public class Transaction extends BaseEntity {
+    private String uid;
     @ManyToOne
-    @JoinColumn(name="person_id")
-    private Person person;
+    private Card fromCard;
     @ManyToOne
-    @JoinColumn(name="account_id")
-    private Account account;
-    private String pan;
-    private Date expirationDate;
-    private String pin;
-    private String cvv;
-    @Enumerated(EnumType.STRING)
-    private CardStatus cardStatus;
-
+    private Account fromAccount;
+    @ManyToOne
+    private Card toCard;
+    @ManyToOne
+    private Account toAccount;
+    private int amount;
 }
