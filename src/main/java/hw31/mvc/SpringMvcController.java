@@ -1,8 +1,8 @@
 package hw31.mvc;
 
-import HW25_Patterns_Integration_Testing.HeroDto;
-import HW25_Patterns_Integration_Testing.HeroService;
-import HW28_REST.HeroCreationRequest;
+import hw25.patterns.integration.testing.HeroDto;
+import hw25.patterns.integration.testing.HeroService;
+import hw28.rest.HeroCreationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

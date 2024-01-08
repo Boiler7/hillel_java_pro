@@ -27,15 +27,6 @@ public abstract class WebIntegrationTest {
     protected ObjectMapper objectMapper;
     @Autowired
     protected CardRepository cardRepository;
-//    @Autowired
-//    protected WireMockServer wireMockServer;
     @Autowired
     protected CurrencyProperties properties;
-
-//    @DynamicPropertySource
-//    public static void registerDynamicProperties(DynamicPropertyRegistry registry) {
-//        registry.add("wiremock.baseurl", WireMockConfig.wireMockServer::baseUrl);
-//    }
-
-
 }
