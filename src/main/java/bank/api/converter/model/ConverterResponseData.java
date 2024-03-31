@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConverterResponseData {
-    String code;
-    double value;
+    private String code;
+    private double value;
 }

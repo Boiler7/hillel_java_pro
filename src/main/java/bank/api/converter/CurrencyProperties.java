@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Configuration
 @ConfigurationProperties(prefix = "currency")
 public class CurrencyProperties {

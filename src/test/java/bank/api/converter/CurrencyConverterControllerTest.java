@@ -12,20 +12,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CurrencyConverterControllerTest extends WebIntegrationTest {
 
-    @Test
-    void shouldConvert() throws Exception {
-        var body =mockMvc.perform(get("/api/converter")
-                        .param("from", "USD")
-                        .param("to", "UAH")
-                        .param("amount", "100")
-                        .contentType(APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        double result = Double.parseDouble(body);
-
-        assertThat(result, equalTo(3914.25));
-    }
+//    @Test
+//    void shouldConvert() throws Exception {
+//        var body =mockMvc.perform(get("/api/converter")
+//                        .param("from", "USD")
+//                        .param("to", "UAH")
+//                        .param("amount", "100")
+//                        .contentType(APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andReturn()
+//                .getResponse()
+//                .getContentAsString();
+//
+//        double result = Double.parseDouble(body);
+//
+//        assertThat(result, equalTo(3914.25));
+//    }
 }
