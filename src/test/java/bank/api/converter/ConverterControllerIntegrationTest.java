@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
-
 public class ConverterControllerIntegrationTest extends WebIntegrationTest {
     @Test
     public void shouldConvert() throws Exception {

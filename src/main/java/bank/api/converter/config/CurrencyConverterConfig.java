@@ -1,6 +1,6 @@
 package bank.api.converter.config;
 
-import bank.api.converter.ApiCurrencyConverter;
+import bank.api.converter.CurrencyApiCurrencyConverter;
 import bank.api.converter.CurrencyConverter;
 import bank.api.converter.CurrencyProperties;
 import bank.api.converter.DummyCurrencyConverter;
