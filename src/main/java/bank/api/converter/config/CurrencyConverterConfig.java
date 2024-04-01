@@ -1,9 +1,6 @@
 package bank.api.converter.config;
 
-import bank.api.converter.CurrencyApiCurrencyConverter;
-import bank.api.converter.CurrencyConverter;
-import bank.api.converter.CurrencyProperties;
-import bank.api.converter.DummyCurrencyConverter;
+import bank.api.converter.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

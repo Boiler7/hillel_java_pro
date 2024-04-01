@@ -46,15 +46,15 @@ class ProductTest {
         List<Product> productList = new ArrayList<>();
 
         productList.add(new Product("Book", 50, false, LocalDate.of(2023, 5, 25)));
-        productList.add(new Product("Book", 45, false, LocalDate.of(2023, 5, 25)));
+        productList.add(new Product("Book", 45, false, LocalDate.of(LocalDate.now().getYear(), 5, 25)));
         productList.add(new Product("Book", 270, false, LocalDate.of(2023, 5, 25)));
         productList.add(new Product("Pack", 70, false, LocalDate.of(2023, 5, 25)));
         productList.add(new Product("Toy", 30, false , LocalDate.of(2023, 5, 25)));
 
         var expectedList = List.of(
-                new Product("Book", 45, true, LocalDate.of(2023, 5, 25)),
-                new Product("Book", 40.5, true, LocalDate.of(2023, 5, 25)),
-                new Product("Book", 243.0, true, LocalDate.of(2023, 5, 25))
+                new Product("Book", 45, true, LocalDate.of(LocalDate.now().getYear(), 5, 25)),
+                new Product("Book", 40.5, true, LocalDate.of(LocalDate.now().getYear(), 5, 25)),
+                new Product("Book", 243.0, true, LocalDate.of(LocalDate.now().getYear(), 5, 25))
         );
 
         assertEquals(expectedList, product.getDiscountedBooks(productList));
@@ -114,11 +114,11 @@ class ProductTest {
 
         List<Product> productList = new ArrayList<>();
 
-        productList.add(new Product("Book", 50, false, LocalDate.of(2023, 5, 25)));
-        productList.add(new Product("Book", 12, false, LocalDate.of(2023, 5, 25)));
-        productList.add(new Product("Book", 45, false, LocalDate.of(2023, 5, 25)));
+        productList.add(new Product("Book", 50, false, LocalDate.of(LocalDate.now().getYear(), 5, 25)));
+        productList.add(new Product("Book", 12, false, LocalDate.of(LocalDate.now().getYear(), 5, 25)));
+        productList.add(new Product("Book", 45, false, LocalDate.of(LocalDate.now().getYear(), 5, 25)));
         productList.add(new Product("Book", 270, false, LocalDate.of(2023, 5, 25)));
-        productList.add(new Product("Book", 75, false, LocalDate.of(2023, 5, 25)));
+        productList.add(new Product("Book", 75, false, LocalDate.of(LocalDate.now().getYear(), 5, 25)));
         productList.add(new Product("Book", 300, false, LocalDate.of(2023, 5, 25)));
         productList.add(new Product("Book", 250, false, LocalDate.of(2023, 5, 25)));
         productList.add(new Product("Tech", 90, false, LocalDate.of(2023, 5, 25)));
