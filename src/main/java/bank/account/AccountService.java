@@ -22,7 +22,7 @@ public class AccountService {
 
     public AccountDto create(AccountDto request) {
         var person = personRepository.findByUid(request.personId())
-                .orElseThrow(() -> new RuntimeException("Person not found"));
+                .orElseThrow();
 
         return convertAccount(accountRepository.save(Account.builder()
                 .uid(UUID.randomUUID().toString())
@@ -34,7 +34,7 @@ public class AccountService {
                 .build()));
     }
 
-    private AccountDto convertAccount(Account account) {
+    public AccountDto convertAccount(Account account) {
         return new AccountDto(account.getUid(), account.getIban(), account.getBalance(), account.getPerson().getUid());
     }
 

@@ -1,7 +1,7 @@
 package HW8.phonebook;
 
-import HW8_Lists.phonebook.PhoneBook;
-import HW8_Lists.phonebook.Record;
+import hw8.lists.phonebook.PhoneBook;
+import hw8.lists.phonebook.Record;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

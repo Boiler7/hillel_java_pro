@@ -21,7 +21,6 @@ public class AccountControllerIntegrationTest extends WebIntegrationTest{
         var person = personRepository.save(Person.builder()
                 .uid(UUID.randomUUID().toString())
                 .name("Test")
-                .uid(UUID.randomUUID().toString())
                 .build());
 
         var account = accountRepository.save(Account.builder()

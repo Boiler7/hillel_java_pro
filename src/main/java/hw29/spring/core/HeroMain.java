@@ -1,6 +1,6 @@
 package hw29.spring.core;
 
-import HW25_Patterns_Integration_Testing.HeroService;
+import hw25.patterns.integration.testing.HeroService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class HeroMain {
