@@ -44,9 +44,6 @@ public abstract class WebIntegrationTest {
     @Autowired
     protected WireMockServer wireMockServer;
 
-    @Autowired
-    protected CurrencyProperties properties;
-
     @DynamicPropertySource
     public static void registerDynamicProperties(DynamicPropertyRegistry registry) {
         registry.add("wiremock.baseurl", WireMockConfig.wireMockServer::baseUrl);
